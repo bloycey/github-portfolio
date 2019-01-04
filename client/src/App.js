@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import User from "./components/User";
 import logo from "./logo.svg";
 
 import "./App.css";
@@ -43,7 +43,7 @@ class App extends Component {
   };
 
   handleSearch = async event => {
-    event.preventDefault();
+    console.log("username sent from react");
     const response = await fetch("/api/getUsers", {
       method: "POST",
       headers: {
@@ -52,12 +52,20 @@ class App extends Component {
       body: JSON.stringify({ githubName: this.state.githubName })
     });
     const body = await response.json();
+    console.log(body);
     this.setState({
-      userResponse: body
+      userResponse: body.response
     });
   };
 
   render() {
+    const AllNames = () => {
+      if (this.state.userResponse !== "") {
+        return <div>BEEP</div>;
+      } else {
+        return null;
+      }
+    };
     return (
       <div className="App">
         <header className="App-header">
@@ -74,31 +82,26 @@ class App extends Component {
             Learn React
           </a>
         </header>
-        <p>{this.state.response}</p>
-        <form onSubmit={this.handleSubmit}>
-          <p>
-            <strong>Post to Server:</strong>
-          </p>
-          <input
-            type="text"
-            value={this.state.post}
-            onChange={e => this.setState({ post: e.target.value })}
-          />
-          <button type="submit">Submit</button>
-        </form>
-        <p>{this.state.responseToPost}</p>
-
-        <form onSubmit={this.handleSearch}>
+        <form>
           <p>
             <strong>Search for github user</strong>
           </p>
           <input
             type="text"
             value={this.state.githubName}
-            onChange={e => this.setState({ githubName: e.target.value })}
+            onChange={e =>
+              this.setState({ githubName: e.target.value }, () =>
+                this.handleSearch(e)
+              )
+            }
           />
-          <button type="submit">Submit</button>
         </form>
+        {this.state.userResponse !== "" &&
+          this.state.githubName !== "" &&
+          this.state.userResponse.items !== undefined &&
+          this.state.userResponse.items.map(item => {
+            return <User username={item.login} />;
+          })}
       </div>
     );
   }

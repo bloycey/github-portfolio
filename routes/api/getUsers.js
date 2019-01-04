@@ -1,31 +1,31 @@
 const express = require("express");
 const router = express.Router();
-const octokit = require("@octokit/rest")();
+const fetch = require("node-fetch");
+const dotenv = require("dotenv");
+
+const client_id = process.env.CLIENT_ID;
+const client_secret = process.env.CLIENT_SECRET;
+
+async function getData(githubUsername) {
+  let response = await fetch(
+    `https://api.github.com/search/users?q=${githubUsername}&per_page=10&client_id=${client_id}&client_secret=${client_secret}`
+  );
+  let data = await response.json();
+  return data;
+}
 
 // @route   GET api/getUsers/test
 // @desc    Tests profile route
 // @access  Public
 
 router.post("/", (req, res) => {
+  console.log("request recieved by server " + req.body.githubName);
   console.log(req.body);
   const username = req.body.githubName;
-  console.log("username", username);
-  octokit.search.users({ q: username }).then(result => {
-    console.log("result", result);
-    res.send({ response: result });
+  getData(username).then(data => {
+    // console.log(data);
+    res.send({ response: data });
   });
-  //   octokit.repos
-  //     .listForOrg({
-  //       org: "octokit",
-  //       type: "public"
-  //     })
-  //     .then(({ data, headers, status }) => {
-  //       res.send({ response: data });
-  //     `I received your POST request to GETUSERS. This is what you sent me: ${
-  //       req.body.githubName
-  //     } ${data}`
-  //   );
-  // });
 });
 
 module.exports = router;
