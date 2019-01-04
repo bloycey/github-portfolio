@@ -1,0 +1,28 @@
+{
+  "name": "github-portfolio",
+  "version": "1.0.0",
+  "description": "Github Portfolio",
+  "license": "MIT",
+  "scripts": {
+    "client": "cd client && yarn start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "dev:server": "cd client && yarn build && cd .. && yarn start",
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  },
+  "dependencies": {
+    "@octokit/rest": "^16.3.2",
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "create-react-app"
+  ]
+}
