@@ -8,7 +8,7 @@ const client_secret = process.env.CLIENT_SECRET;
 
 async function getData(githubUsername) {
   let response = await fetch(
-    `https://api.github.com/search/users?q=${githubUsername}&per_page=10&client_id=${client_id}&client_secret=${client_secret}`
+    `https://api.github.com/search/users?q=${githubUsername}&per_page=6&client_id=${client_id}&client_secret=${client_secret}`
   );
   let data = await response.json();
   return data;
