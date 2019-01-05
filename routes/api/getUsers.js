@@ -14,8 +14,8 @@ async function getData(githubUsername) {
   return data;
 }
 
-// @route   GET api/getUsers/test
-// @desc    Tests profile route
+// @route   GET api/getUsers
+// @desc    Gets usernames from github API based on search
 // @access  Public
 
 router.post("/", (req, res) => {

@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 import User from "./components/User";
 import logo from "./logo.svg";
+import { BrowserRouter, Route, Link, Redirect } from "react-router-dom";
 
 import "./App.css";
 
@@ -12,6 +15,10 @@ class App extends Component {
     userSearch: "",
     userResponse: "",
     githubName: ""
+  };
+
+  static propTypes = {
+    history: PropTypes.object
   };
 
   componentDidMount() {
@@ -27,19 +34,6 @@ class App extends Component {
     if (response.status !== 200) throw Error(body.message);
 
     return body;
-  };
-
-  handleSubmit = async e => {
-    e.preventDefault();
-    const response = await fetch("/api/world", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ post: this.state.post })
-    });
-    const body = await response.text();
-    this.setState({ responseToPost: body });
   };
 
   handleSearch = async event => {
@@ -58,51 +52,58 @@ class App extends Component {
     });
   };
 
+  goToProfile = user => {
+    console.log("go to profile triggered");
+    this.props.history.push(`/${user}`);
+  };
+
   render() {
-    const AllNames = () => {
-      if (this.state.userResponse !== "") {
-        return <div>BEEP</div>;
-      } else {
-        return null;
-      }
-    };
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-        <form>
-          <p>
-            <strong>Search for github user</strong>
-          </p>
-          <input
-            type="text"
-            value={this.state.githubName}
-            onChange={e =>
-              this.setState({ githubName: e.target.value }, () =>
-                this.handleSearch(e)
-              )
-            }
-          />
-        </form>
-        {this.state.userResponse !== "" &&
-          this.state.githubName !== "" &&
-          this.state.userResponse.items !== undefined &&
-          this.state.userResponse.items.map(item => {
-            return <User username={item.login} />;
-          })}
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <p>
+              Edit <code>src/App.js</code> and save to reload.
+            </p>
+            <a
+              className="App-link"
+              href="https://reactjs.org"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn React
+            </a>
+          </header>
+          <form>
+            <p>
+              <strong>Search for github user</strong>
+            </p>
+            <input
+              type="text"
+              value={this.state.githubName}
+              onChange={e =>
+                this.setState({ githubName: e.target.value }, () =>
+                  this.handleSearch(e)
+                )
+              }
+            />
+          </form>
+          {this.state.userResponse !== "" &&
+            this.state.githubName !== "" &&
+            this.state.userResponse.items !== undefined &&
+            this.state.userResponse.items.map(item => {
+              return (
+                <a
+                  href="javascript:void(0)"
+                  onClick={() => this.goToProfile(item.login)}
+                >
+                  <User key={item.login} username={item.login} />
+                </a>
+              );
+            })}
+        </div>
+      </BrowserRouter>
     );
   }
 }

@@ -12,13 +12,11 @@
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
-    "@octokit/rest": "^16.3.2",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
-    "node-fetch": "^2.3.0",
-    "octonode": "^0.9.5"
+    "node-fetch": "^2.3.0"
   },
   "devDependencies": {
     "concurrently": "^4.1.0"
