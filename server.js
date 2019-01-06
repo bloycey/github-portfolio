@@ -3,6 +3,8 @@ const path = require("path");
 const bodyParser = require("body-parser");
 
 const getUsers = require("./routes/api/getUsers");
+const getUserProfile = require("./routes/api/getUserProfile");
+const getRateLimit = require("./routes/api/getRateLimit");
 
 const app = express();
 
@@ -13,6 +15,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Routes
 
 app.use("/api/getUsers", getUsers);
+app.use("/api/getUserProfile", getUserProfile);
+app.use("/api/getRateLimit", getRateLimit);
 
 app.get("/api/hello", (req, res) => {
   res.send({ express: "Hello From Express" });

@@ -54,7 +54,7 @@ class App extends Component {
 
   goToProfile = user => {
     console.log("go to profile triggered");
-    this.props.history.push(`/${user}`);
+    this.props.history.push(`/users/${user}`);
   };
 
   render() {
