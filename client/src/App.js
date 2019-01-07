@@ -14,26 +14,21 @@ class App extends Component {
     responseToPost: "",
     userSearch: "",
     userResponse: "",
-    githubName: ""
+    githubName: "",
+    rateLimit: ""
   };
 
   static propTypes = {
     history: PropTypes.object
   };
 
-  componentDidMount() {
-    this.callApi()
-      .then(res => this.setState({ response: res.express }))
-      .catch(err => console.log(err));
-  }
+  componentDidMount() {}
 
-  callApi = async () => {
-    const response = await fetch("/api/hello");
+  getRateLimit = async () => {
+    const response = await fetch(`/api/getRateLimit`);
     const body = await response.json();
-
     if (response.status !== 200) throw Error(body.message);
-
-    return body;
+    return body.response;
   };
 
   handleSearch = async event => {
@@ -46,10 +41,8 @@ class App extends Component {
       body: JSON.stringify({ githubName: this.state.githubName })
     });
     const body = await response.json();
-    console.log(body);
-    this.setState({
-      userResponse: body.response
-    });
+    if (response.status !== 200) throw Error(body.message);
+    return body.response;
   };
 
   goToProfile = user => {
@@ -107,6 +100,19 @@ class App extends Component {
                   onChange={e =>
                     this.setState({ githubName: e.target.value }, () =>
                       this.handleSearch(e)
+                        .then(res => {
+                          this.setState({
+                            userResponse: res
+                          });
+                          this.getRateLimit()
+                            .then(res => {
+                              this.setState({
+                                rateLimit: res
+                              });
+                            })
+                            .catch(err => console.log(err));
+                        })
+                        .catch(err => console.log(err))
                     )
                   }
                 />
@@ -134,6 +140,7 @@ class App extends Component {
                 this.state.userResponse.items.map(item => {
                   return (
                     <a
+                      key={item.login}
                       className="user-card"
                       href="javascript:void(0)"
                       onClick={() => this.goToProfile(item.login)}
