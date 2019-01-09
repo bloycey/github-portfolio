@@ -6,6 +6,7 @@ const getUsers = require("./routes/api/getUsers");
 const getUserProfile = require("./routes/api/getUserProfile");
 const getRateLimit = require("./routes/api/getRateLimit");
 const getUserRepos = require("./routes/api/getUserRepos");
+const getRepoTags = require("./routes/api/getRepoTags");
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use("/api/getUsers", getUsers);
 app.use("/api/getUserProfile", getUserProfile);
 app.use("/api/getRateLimit", getRateLimit);
 app.use("/api/getUserRepos", getUserRepos);
+app.use("/api/getRepoTags", getRepoTags);
 
 app.get("/api/hello", (req, res) => {
   res.send({ express: "Hello From Express" });

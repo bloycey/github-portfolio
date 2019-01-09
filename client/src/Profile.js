@@ -4,7 +4,8 @@ class Profile extends React.Component {
   state = {
     userData: false,
     rateLimit: "",
-    repos: ""
+    repos: "",
+    tags: ""
   };
 
   getUserInfo = async username => {
@@ -20,6 +21,18 @@ class Profile extends React.Component {
   getUserRepos = async username => {
     console.log("username sent from react " + username);
     const response = await fetch(`/api/getUserRepos/?username=${username}`);
+    const body = await response.json();
+    if (response.status !== 200) {
+      throw Error(body.message);
+    }
+    return body.response;
+  };
+
+  getRepoTags = async (username, repo) => {
+    console.log("username sent from react " + username);
+    const response = await fetch(
+      `/api/getRepoTags/?username=${username}&repo=${repo}`
+    );
     const body = await response.json();
     if (response.status !== 200) {
       throw Error(body.message);
@@ -47,26 +60,41 @@ class Profile extends React.Component {
           });
           this.getUserRepos(username)
             .then(res => {
+              let repoList = {};
+              res.forEach(repo => {
+                const repoName = repo.name;
+                repoList[repoName] = repo;
+              });
               this.setState(
                 {
-                  repos: res
+                  repos: repoList
                 },
                 () => {
-                  this.state.repos.forEach(repo => {
-                    const name = repo.name;
-                    console.log(name);
-                    // Function to build tags list goes here https://developer.github.com/v3/repos/#list-all-topics-for-a-repository
-                    // https://stackoverflow.com/questions/29775797/fetch-post-json-data
+                  let topicsList = new Set();
+                  Object.keys(this.state.repos).map(key => {
+                    const name = key;
+                    let currentRepos = this.state.repos;
+                    this.getRepoTags(username, name)
+                      .then(res => {
+                        res.names.map(topic => {
+                          topicsList.add(topic);
+                        });
+                        this.setState({
+                          tags: topicsList
+                        });
+                      })
+                      .catch(err => console.log(err));
                   });
+
+                  this.getRateLimit()
+                    .then(res => {
+                      this.setState({
+                        rateLimit: res
+                      });
+                    })
+                    .catch(err => console.log(err));
                 }
               );
-              this.getRateLimit()
-                .then(res => {
-                  this.setState({
-                    rateLimit: res
-                  });
-                })
-                .catch(err => console.log(err));
             })
             .catch(err => console.log(err));
         })
