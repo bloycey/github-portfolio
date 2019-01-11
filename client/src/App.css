@@ -140,3 +140,24 @@ a.user-card {
 .view-profile-btn {
   margin-top: 15px;
 }
+
+/*****PROFILE PAGE******/
+
+.profile-wrapper {
+  min-height: 100vh;
+  background-color: #232733;
+}
+
+.profile-header-outer-wrapper {
+  padding-top: 80px;
+}
+
+.profile-header-img-wrapper, .profile-header-text {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.profile-header-text {
+  background-color: #353B4D
+}
+

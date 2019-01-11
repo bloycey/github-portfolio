@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import User from "./components/User";
 import { BrowserRouter, Route, Link, Redirect } from "react-router-dom";
-import { Container, Jumbotron } from "reactstrap";
+import { Container } from "reactstrap";
 import "./App.css";
 import exampleUser from "./img/example2.png";
 
