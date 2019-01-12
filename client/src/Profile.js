@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, Button } from "reactstrap";
 
 class Profile extends React.Component {
   state = {
@@ -110,26 +110,45 @@ class Profile extends React.Component {
     return (
       <div className="profile-wrapper">
         <Container class="narrow-container">
-          <Row className="profile-header-outer-wrapper">
-            <Col md={{size: 8, offset: 2}}>
+          <Row className="profile-header-outer-wrapper row-padded">
+            <Col md={{ size: 8, offset: 2 }}>
               <Row className="profile-header-row">
-                  <Col xs="3" className="profile-header-img-wrapper">
-                    <img src="https://via.placeholder.com/300" className="img-fluid"/>
-                  </Col>
-                  <Col xs="9" className="profile-header-text">TEXT HERE</Col>
+                <Col xs="3" className="profile-header-img-wrapper">
+                  <img
+                    src="https://via.placeholder.com/300"
+                    className="img-fluid"
+                  />
+                </Col>
+                <Col xs="9" className="profile-header-text">
+                  <h1 class="uppercase">Andrew Bloyce</h1>
+                  <h2 className="font-light">bloycey</h2>
+                </Col>
               </Row>
             </Col>
           </Row>
-          <div className="profile-header">
-            
-          </div>
+          <Row className="row-padded">
+            <Col md={{ size: 8, offset: 2 }} className="no-padding-left-right">
+              <div className="description">
+                Front End Developer at @NetoECommerce
+              </div>
+            </Col>
+          </Row>
+          <Row className="row-padded">
+            <Col md={{ size: 8, offset: 2 }} className="no-padding-left-right">
+              <div className="filter-controls">
+                <Button color="primary">primary</Button>
+                <Button color="primary">primary</Button>
+                <Button color="primary">primary</Button>
+                <Button color="primary">primary</Button>
+              </div>
+            </Col>
+          </Row>
+          <div className="profile-header" />
           {/* <article>
             <h2>{this.props.match.params.user}</h2>
           </article> */}
         </Container>
-        
       </div>
-      
     );
   }
 }

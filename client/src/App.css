@@ -13,11 +13,21 @@ h4,
 h5,
 h6 {
   font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.font-light {
+  font-weight: 300;
 }
 
 p {
   margin-bottom: 0.8rem;
 }
+
+.uppercase {
+  text-transform: uppercase;
+}
+
 .App {
   background-color: #232733;
 }
@@ -146,18 +156,58 @@ a.user-card {
 .profile-wrapper {
   min-height: 100vh;
   background-color: #232733;
+  color: #fff;
+}
+
+.no-padding-left-right {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .profile-header-outer-wrapper {
   padding-top: 80px;
 }
 
-.profile-header-img-wrapper, .profile-header-text {
+.profile-header-img-wrapper,
+.profile-header-text {
   padding-left: 0;
   padding-right: 0;
 }
 
 .profile-header-text {
-  background-color: #353B4D
+  background-color: #353b4d;
+  color: #fff;
+  padding: 40px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
 }
 
+.profile-header-text h1 {
+  margin-bottom: -7px;
+  font-size: 50px;
+}
+
+.profile-header-row {
+  border-bottom: 7px solid #5cffe2;
+}
+
+.row-padded {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.description {
+  font-size: 22px;
+  padding-top: 15px;
+}
+
+.filter-controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter-controls button {
+  width: 24%;
+}
