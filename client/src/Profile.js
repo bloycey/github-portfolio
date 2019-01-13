@@ -62,63 +62,69 @@ class Profile extends React.Component {
   componentDidMount() {
     const username = this.props.match.params.user;
 
-    // if (!this.state.userData) {
-    //   this.getUserInfo(username)
-    //     .then(res => {
-    //       this.setState({
-    //         userData: res
-    //       });
-    //       this.getUserRepos(username)
-    //         .then(res => {
-    //           let repoList = {};
-    //           res.forEach(repo => {
-    //             const repoName = repo.name;
-    //             repoList[repoName] = repo;
-    //           });
-    //           this.setState(
-    //             {
-    //               repos: repoList
-    //             },
-    //             () => {
-    //               let topicsList = new Set();
-    //               Object.keys(this.state.repos).map(key => {
-    //                 const name = key;
-    //                 let currentRepos = this.state.repos;
-    //                 this.getRepoTags(username, name)
-    //                   .then(res => {
-    //                     res.names.map(topic => {
-    //                       topicsList.add(topic);
-    //                     });
-    //                     this.setState({
-    //                       tags: topicsList
-    //                     });
-    //                   })
-    //                   .catch(err => console.log(err));
-    //               });
-    //               this.getRateLimit()
-    //                 .then(res => {
-    //                   this.setState({
-    //                     rateLimit: res
-    //                   }, () => {
-    //                     this.setState({
-    //                       userData: true
-    //                     })
-    //                   });
-    //                 })
-    //                 .catch(err => console.log(err));
-    //             }
-    //           );
-    //         })
-    //         .catch(err => console.log(err));
-    //     })
-    //     .catch(err => console.log(err));
-    // }
+    if (!this.state.userData) {
+      this.getUserInfo(username)
+        .then(res => {
+          this.setState({
+            userData: res
+          });
+          this.getUserRepos(username)
+            .then(res => {
+              let repoList = {};
+              res.forEach(repo => {
+                const repoName = repo.name;
+                repoList[repoName] = repo;
+              });
+              this.setState(
+                {
+                  repos: repoList
+                },
+                () => {
+                  let topicsList = new Set();
+                  Object.keys(this.state.repos).map(key => {
+                    const name = key;
+                    let currentRepos = this.state.repos;
+                    this.getRepoTags(username, name)
+                      .then(res => {
+                        currentRepos[name].tags = res;
+                        res.names.map(topic => {
+                          topicsList.add(topic);
+                        });
+                        this.setState({
+                          repos: currentRepos,
+                          tags: topicsList
+                        });
+                      })
+                      .catch(err => console.log(err));
+                  });
+                  this.getRateLimit()
+                    .then(res => {
+                      this.setState(
+                        {
+                          rateLimit: res
+                        },
+                        () => {
+                          this.setState({
+                            userData: true
+                          });
+                        }
+                      );
+                    })
+                    .catch(err => console.log(err));
+                }
+              );
+            })
+            .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
+    }
   }
 
   render() {
+    const repos = this.state.repos;
     return (
       <div className="profile-wrapper">
-        <Container class="narrow-container">
+        <Container className="narrow-container">
           <Row className="profile-header-outer-wrapper row-padded">
             <Col md={{ size: 10, offset: 1 }}>
               <Row className="profile-header-row">
@@ -165,12 +171,17 @@ class Profile extends React.Component {
           <Row className="row-padded">
             <Col md={{ size: 10, offset: 1 }} className="no-padding-left-right">
               <div className="repos-wrapper">
-                <Repo />
-                <Repo />
-                <Repo />
-                <Repo />
-                <Repo />
-                <Repo />
+                {this.state.userData &&
+                  Object.keys(repos).map(repo => (
+                    <Repo
+                      name={repos[repo].name}
+                      key={repos[repo].name}
+                      description={repos[repo].description}
+                      language={repos[repo].language}
+                      url={repos[repo].html_url}
+                      tags={repos[repo].tags || null}
+                    />
+                  ))}
               </div>
             </Col>
           </Row>
