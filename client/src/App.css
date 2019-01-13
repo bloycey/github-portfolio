@@ -204,10 +204,79 @@ a.user-card {
 }
 
 .filter-controls {
+  margin-top: 30px;
+  margin-bottom: 30px;
   display: flex;
   justify-content: space-between;
 }
 
 .filter-controls button {
   width: 24%;
+}
+
+.filter-btn {
+  background-color: #353b4c;
+  border: 1px solid #4e5770;
+  border-radius: 0;
+  font-size: 16px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.filter-btn.selected,
+.filter-btn:hover {
+  border: 1px solid #5cffe2;
+  background-color: #353b4c;
+}
+
+.filter-btn svg {
+  margin-right: 5px;
+}
+
+.repos-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.single-repo-wrapper {
+  background-color: #3d404a;
+  width: calc(33.33% - 15px);
+  margin-bottom: 30px;
+  padding: 30px;
+  text-align: left;
+}
+
+.single-repo-wrapper hr {
+  border-color: #fff;
+  opacity: 0.6;
+}
+
+.repo-title {
+  font-size: 26px;
+  font-weight: 400;
+}
+
+hr.small-divider {
+  width: 20%;
+  display: inline-block;
+  opacity: 0.1;
+}
+
+.view-repo-btn {
+  border: 1px solid #5cffe2;
+  border-radius: 0;
+  color: #5cffe2;
+  padding-right: 25px;
+  padding-left: 25px;
+}
+
+.view-repo-btn:hover {
+  border-color: #25b99e;
+  background-color: #25b99e;
+  color: #fff;
+}
+
+.language {
+  padding-bottom: 15px;
 }
