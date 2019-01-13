@@ -122,6 +122,7 @@ class Profile extends React.Component {
 
   render() {
     const repos = this.state.repos;
+    const username = this.props.match.params.user;
     return (
       <div className="profile-wrapper">
         <Container className="narrow-container">
@@ -136,7 +137,7 @@ class Profile extends React.Component {
                 </Col>
                 <Col xs="9" className="profile-header-text">
                   <h1 className="uppercase">Andrew Bloyce</h1>
-                  <h2 className="font-light">bloycey</h2>
+                  <h2 className="font-light">{username}</h2>
                 </Col>
               </Row>
             </Col>

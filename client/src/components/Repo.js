@@ -24,7 +24,7 @@ class Repo extends React.Component {
             this.props.tags.names.map(tag => <Tag tagName={tag} key={tag} />)}
         </div>
         <Button outline className="view-repo-btn">
-          View Portfolio
+          View Repository
         </Button>
       </div>
     );

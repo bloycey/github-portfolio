@@ -239,6 +239,12 @@ a.user-card {
   justify-content: space-between;
 }
 
+.repos-wrapper:after {
+  content: "";
+  flex: none;
+  width: calc(33.33% - 15px);
+}
+
 .single-repo-wrapper {
   background-color: #3d404a;
   width: calc(33.33% - 15px);
@@ -255,6 +261,10 @@ a.user-card {
 .repo-title {
   font-size: 26px;
   font-weight: 400;
+}
+
+.repo-description {
+  word-break: break-word;
 }
 
 hr.small-divider {
