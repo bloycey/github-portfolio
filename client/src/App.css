@@ -248,9 +248,12 @@ a.user-card {
 .single-repo-wrapper {
   background-color: #3d404a;
   width: calc(33.33% - 15px);
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   padding: 30px;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .single-repo-wrapper hr {
@@ -279,9 +282,11 @@ hr.small-divider {
   color: #5cffe2;
   padding-right: 25px;
   padding-left: 25px;
+  margin-top: auto;
 }
 
-.view-repo-btn:hover {
+.view-repo-btn:hover,
+.view-repo-btn:active {
   border-color: #25b99e;
   background-color: #25b99e;
   color: #fff;
@@ -289,4 +294,14 @@ hr.small-divider {
 
 .language {
   padding-bottom: 15px;
+}
+
+.date-created {
+  position: absolute;
+  bottom: -23px;
+  left: 0;
+  font-weight: 300;
+  font-size: 12px;
+  opacity: 0.4;
+  letter-spacing: 0.25px;
 }

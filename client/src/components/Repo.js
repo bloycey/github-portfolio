@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button } from "reactstrap";
+import { distanceInWordsToNow } from "date-fns";
 import Tag from "./Tag";
 import "../App.css";
 
@@ -7,6 +8,10 @@ class Repo extends React.Component {
   state = {};
 
   render() {
+    const updated = distanceInWordsToNow(this.props.updated, {
+      addSuffix: true
+    });
+
     return (
       <div className="single-repo-wrapper">
         <h2 className="repo-title">{this.props.name}</h2>
@@ -26,6 +31,7 @@ class Repo extends React.Component {
         <Button outline className="view-repo-btn">
           View Repository
         </Button>
+        <span className="date-created">Last updated {updated}</span>
       </div>
     );
   }

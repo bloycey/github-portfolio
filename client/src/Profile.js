@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { format, compareDesc, compareAsc } from "date-fns";
 import Repo from "./components/Repo";
 import {
   faListAlt,
@@ -14,7 +15,9 @@ class Profile extends React.Component {
     userData: false,
     view: "all",
     rateLimit: "",
+    numRepos: "",
     repos: "",
+    reposArray: [],
     tags: ""
   };
 
@@ -66,18 +69,24 @@ class Profile extends React.Component {
       this.getUserInfo(username)
         .then(res => {
           this.setState({
-            userData: res
+            userData: res,
+            numRepos: res.public_repos
           });
           this.getUserRepos(username)
             .then(res => {
               let repoList = {};
+              let reposArray = [];
               res.forEach(repo => {
                 const repoName = repo.name;
                 repoList[repoName] = repo;
+                let newItem = repo;
+                newItem.sortDate = format(repo.pushed_at, "x");
+                reposArray.push(newItem);
               });
               this.setState(
                 {
-                  repos: repoList
+                  repos: repoList,
+                  reposArray: reposArray
                 },
                 () => {
                   let topicsList = new Set();
@@ -99,16 +108,18 @@ class Profile extends React.Component {
                   });
                   this.getRateLimit()
                     .then(res => {
-                      this.setState(
-                        {
-                          rateLimit: res
-                        },
-                        () => {
-                          this.setState({
-                            userData: true
-                          });
-                        }
+                      this.setState({
+                        rateLimit: res
+                      });
+                      console.log(
+                        Object.keys(this.state.userData).length,
+                        this.state.numRepos
                       );
+                      {
+                        this.setState({
+                          reposFetched: true
+                        });
+                      }
                     })
                     .catch(err => console.log(err));
                 }
@@ -122,6 +133,7 @@ class Profile extends React.Component {
 
   render() {
     const repos = this.state.repos;
+    const reposArray = this.state.reposArray;
     const username = this.props.match.params.user;
     return (
       <div className="profile-wrapper">
@@ -131,12 +143,12 @@ class Profile extends React.Component {
               <Row className="profile-header-row">
                 <Col xs="3" className="profile-header-img-wrapper">
                   <img
-                    src="https://via.placeholder.com/300"
+                    src={this.state.userData.avatar_url}
                     className="img-fluid"
                   />
                 </Col>
                 <Col xs="9" className="profile-header-text">
-                  <h1 className="uppercase">Andrew Bloyce</h1>
+                  <h1 className="uppercase">{this.state.userData.name}</h1>
                   <h2 className="font-light">{username}</h2>
                 </Col>
               </Row>
@@ -145,7 +157,7 @@ class Profile extends React.Component {
           <Row className="row-padded">
             <Col md={{ size: 10, offset: 1 }} className="no-padding-left-right">
               <div className="description">
-                Front End Developer at @NetoECommerce
+                {this.state.userData.bio || null}
               </div>
             </Col>
           </Row>
@@ -172,23 +184,29 @@ class Profile extends React.Component {
           <Row className="row-padded">
             <Col md={{ size: 10, offset: 1 }} className="no-padding-left-right">
               <div className="repos-wrapper">
-                {this.state.userData &&
-                  Object.keys(repos).map(repo => (
-                    <Repo
-                      name={repos[repo].name}
-                      key={repos[repo].name}
-                      description={repos[repo].description}
-                      language={repos[repo].language}
-                      url={repos[repo].html_url}
-                      tags={repos[repo].tags || null}
-                    />
-                  ))}
+                {this.state.reposArray &&
+                  this.state.reposArray
+                    .sort((a, b) =>
+                      a.sortDate < b.sortDate
+                        ? 1
+                        : b.sortDate < a.sortDate
+                        ? -1
+                        : 0
+                    )
+                    .map(repo => (
+                      <Repo
+                        name={repo.name}
+                        key={repo.name}
+                        description={repo.description}
+                        language={repo.language}
+                        url={repo.html_url}
+                        tags={repo.tags || null}
+                        updated={repo.updated_at}
+                      />
+                    ))}
               </div>
             </Col>
           </Row>
-          {/* <article>
-            <h2>{this.props.match.params.user}</h2>
-          </article> */}
         </Container>
       </div>
     );
