@@ -202,6 +202,9 @@ class Profile extends React.Component {
                         url={repo.html_url}
                         tags={repo.tags || null}
                         updated={repo.updated_at}
+                        stars={repo.stargazers_count}
+                        url={repo.svn_url}
+                        site={repo.homepage}
                       />
                     ))}
               </div>
