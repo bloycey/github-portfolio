@@ -330,3 +330,14 @@ span.stars-wrapper {
 .site-wrapper a:focus {
   color: #fff;
 }
+
+[type="reset"],
+[type="submit"],
+button,
+html [type="button"] {
+  -webkit-appearance: unset;
+}
+
+.filter-btn:focus {
+  box-shadow: none;
+}

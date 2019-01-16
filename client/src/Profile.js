@@ -3,6 +3,11 @@ import { Container, Row, Col, Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format, compareDesc, compareAsc } from "date-fns";
 import Repo from "./components/Repo";
+import AllRepos from "./components/views/AllRepos";
+import TagsView from "./components/views/TagsView";
+import LanguageView from "./components/views/LanguageView";
+import StatsView from "./components/views/StatsView";
+
 import {
   faListAlt,
   faHashtag,
@@ -19,6 +24,12 @@ class Profile extends React.Component {
     repos: "",
     reposArray: [],
     tags: ""
+  };
+
+  changeView = view => {
+    this.setState({
+      view: view
+    });
   };
 
   getUserInfo = async username => {
@@ -164,17 +175,45 @@ class Profile extends React.Component {
           <Row className="row-padded">
             <Col md={{ size: 10, offset: 1 }} className="no-padding-left-right">
               <div className="filter-controls">
-                <Button className="filter-btn selected">
+                <Button
+                  className={
+                    this.state.view == "all"
+                      ? "filter-btn selected"
+                      : "filter-btn"
+                  }
+                  onClick={() => this.changeView("all")}
+                >
                   <FontAwesomeIcon icon={faListAlt} /> All Repos
                 </Button>
-                <Button className="filter-btn">
+                <Button
+                  className={
+                    this.state.view == "tags"
+                      ? "filter-btn selected"
+                      : "filter-btn"
+                  }
+                  onClick={() => this.changeView("tags")}
+                >
                   <FontAwesomeIcon icon={faHashtag} /> Sort by Tag
                 </Button>
-                <Button className="filter-btn">
+                <Button
+                  className={
+                    this.state.view == "language"
+                      ? "filter-btn selected"
+                      : "filter-btn"
+                  }
+                  onClick={() => this.changeView("language")}
+                >
                   <FontAwesomeIcon icon={faCode} />
                   Sort by Language
                 </Button>
-                <Button className="filter-btn">
+                <Button
+                  className={
+                    this.state.view == "stats"
+                      ? "filter-btn selected"
+                      : "filter-btn"
+                  }
+                  onClick={() => this.changeView("stats")}
+                >
                   <FontAwesomeIcon icon={faChartPie} />
                   Statistics
                 </Button>
@@ -183,31 +222,21 @@ class Profile extends React.Component {
           </Row>
           <Row className="row-padded">
             <Col md={{ size: 10, offset: 1 }} className="no-padding-left-right">
-              <div className="repos-wrapper">
-                {this.state.reposArray &&
-                  this.state.reposArray
-                    .sort((a, b) =>
-                      a.sortDate < b.sortDate
-                        ? 1
-                        : b.sortDate < a.sortDate
-                        ? -1
-                        : 0
-                    )
-                    .map(repo => (
-                      <Repo
-                        name={repo.name}
-                        key={repo.name}
-                        description={repo.description}
-                        language={repo.language}
-                        url={repo.html_url}
-                        tags={repo.tags || null}
-                        updated={repo.updated_at}
-                        stars={repo.stargazers_count}
-                        url={repo.svn_url}
-                        site={repo.homepage}
-                      />
-                    ))}
-              </div>
+              {this.state.view === "all" && this.state.reposArray && (
+                <AllRepos reposArray={this.state.reposArray} />
+              )}
+
+              {this.state.view === "tags" && this.state.reposArray && (
+                <TagsView reposArray={this.state.reposArray} />
+              )}
+
+              {this.state.view === "language" && this.state.reposArray && (
+                <LanguageView reposArray={this.state.reposArray} />
+              )}
+
+              {this.state.view === "stats" && this.state.reposArray && (
+                <StatsView reposArray={this.state.reposArray} />
+              )}
             </Col>
           </Row>
         </Container>
