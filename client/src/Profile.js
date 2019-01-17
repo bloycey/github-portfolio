@@ -23,7 +23,9 @@ class Profile extends React.Component {
     numRepos: "",
     repos: "",
     reposArray: [],
-    tags: ""
+    tags: "",
+    tagsApplied: false,
+    reposFetched: false
   };
 
   changeView = view => {
@@ -101,36 +103,37 @@ class Profile extends React.Component {
                 },
                 () => {
                   let topicsList = new Set();
-                  Object.keys(this.state.repos).map(key => {
-                    const name = key;
-                    let currentRepos = this.state.repos;
-                    this.getRepoTags(username, name)
-                      .then(res => {
-                        currentRepos[name].tags = res;
-                        res.names.map(topic => {
-                          topicsList.add(topic);
-                        });
-                        this.setState({
-                          repos: currentRepos,
-                          tags: topicsList
-                        });
-                      })
-                      .catch(err => console.log(err));
+                  const setTags = Object.keys(this.state.repos).map(
+                    async key => {
+                      console.log("setting tags for " + key);
+                      const name = key;
+                      let currentRepos = this.state.repos;
+                      this.getRepoTags(username, name)
+                        .then(res => {
+                          currentRepos[name].tags = res;
+                          res.names.map(topic => {
+                            topicsList.add(topic);
+                          });
+                          this.setState({
+                            repos: currentRepos,
+                            tags: topicsList
+                          });
+                        })
+                        .catch(err => console.log(err));
+                    }
+                  );
+                  Promise.all(setTags).then(completed => {
+                    console.log("all tags applied!");
+                    this.setState({
+                      tagsApplied: true
+                    });
                   });
                   this.getRateLimit()
                     .then(res => {
                       this.setState({
-                        rateLimit: res
+                        rateLimit: res,
+                        reposFetched: true
                       });
-                      console.log(
-                        Object.keys(this.state.userData).length,
-                        this.state.numRepos
-                      );
-                      {
-                        this.setState({
-                          reposFetched: true
-                        });
-                      }
                     })
                     .catch(err => console.log(err));
                 }
@@ -174,50 +177,53 @@ class Profile extends React.Component {
           </Row>
           <Row className="row-padded">
             <Col md={{ size: 10, offset: 1 }} className="no-padding-left-right">
-              <div className="filter-controls">
-                <Button
-                  className={
-                    this.state.view == "all"
-                      ? "filter-btn selected"
-                      : "filter-btn"
-                  }
-                  onClick={() => this.changeView("all")}
-                >
-                  <FontAwesomeIcon icon={faListAlt} /> All Repos
-                </Button>
-                <Button
-                  className={
-                    this.state.view == "tags"
-                      ? "filter-btn selected"
-                      : "filter-btn"
-                  }
-                  onClick={() => this.changeView("tags")}
-                >
-                  <FontAwesomeIcon icon={faHashtag} /> Sort by Tag
-                </Button>
-                <Button
-                  className={
-                    this.state.view == "language"
-                      ? "filter-btn selected"
-                      : "filter-btn"
-                  }
-                  onClick={() => this.changeView("language")}
-                >
-                  <FontAwesomeIcon icon={faCode} />
-                  Sort by Language
-                </Button>
-                <Button
-                  className={
-                    this.state.view == "stats"
-                      ? "filter-btn selected"
-                      : "filter-btn"
-                  }
-                  onClick={() => this.changeView("stats")}
-                >
-                  <FontAwesomeIcon icon={faChartPie} />
-                  Statistics
-                </Button>
-              </div>
+              {this.state.reposFetched && (
+                <div className="filter-controls">
+                  <Button
+                    className={
+                      this.state.view == "all"
+                        ? "filter-btn selected"
+                        : "filter-btn"
+                    }
+                    onClick={() => this.changeView("all")}
+                  >
+                    <FontAwesomeIcon icon={faListAlt} /> All Repos
+                  </Button>
+                  <Button
+                    className={
+                      this.state.view == "tags"
+                        ? "filter-btn selected"
+                        : "filter-btn"
+                    }
+                    onClick={() => this.changeView("tags")}
+                  >
+                    <FontAwesomeIcon icon={faHashtag} /> Sort by Tag
+                  </Button>
+                  <Button
+                    className={
+                      this.state.view == "language"
+                        ? "filter-btn selected"
+                        : "filter-btn"
+                    }
+                    onClick={() => this.changeView("language")}
+                  >
+                    <FontAwesomeIcon icon={faCode} />
+                    Sort by Language
+                  </Button>
+                  <Button
+                    className={
+                      this.state.view == "stats"
+                        ? "filter-btn selected"
+                        : "filter-btn"
+                    }
+                    onClick={() => this.changeView("stats")}
+                  >
+                    <FontAwesomeIcon icon={faChartPie} />
+                    Statistics
+                  </Button>
+                </div>
+              )}
+              {!this.state.reposFetched && <h4>Loading Repository Data</h4>}
             </Col>
           </Row>
           <Row className="row-padded">
@@ -226,9 +232,15 @@ class Profile extends React.Component {
                 <AllRepos reposArray={this.state.reposArray} />
               )}
 
-              {this.state.view === "tags" && this.state.reposArray && (
-                <TagsView reposArray={this.state.reposArray} />
-              )}
+              {this.state.view === "tags" &&
+                this.state.reposArray &&
+                this.state.tagsApplied && (
+                  <TagsView
+                    reposArray={this.state.reposArray}
+                    tagsApplied={this.state.tagsApplied}
+                    tags={this.state.tags}
+                  />
+                )}
 
               {this.state.view === "language" && this.state.reposArray && (
                 <LanguageView reposArray={this.state.reposArray} />

@@ -112,6 +112,12 @@ section#github-search {
   padding-bottom: 80px;
 }
 
+section#github-search-results:after {
+  content: "";
+  flex: none;
+  width: 30%;
+}
+
 .user-card {
   padding: 45px;
   background-color: #3d404a;
