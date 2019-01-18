@@ -1,12 +1,24 @@
 import React, { Component } from "react";
-import { Collapse } from "reactstrap";
+import { Collapse, Button } from "reactstrap";
 import Repo from "../Repo";
 import TagCollapse from "./TagCollapse";
 import "../../App.css";
 
-const TagsView = props => {
-  const tags = Array.from(props.tags);
-  const unsortedRepos = props.reposArray.filter(
+class TagsView extends Component {
+
+  state= {
+    unsortedCollapse: false
+  }
+
+  toggle = () => {
+    this.setState({
+      unsortedCollapse: !this.state.unsortedCollapse
+    })
+  }
+
+  render(){
+    const tags = Array.from(this.props.tags);
+    const unsortedRepos = this.props.reposArray.filter(
     repo => !repo.tags.names.length > 0
   );
   return (
@@ -15,12 +27,14 @@ const TagsView = props => {
         {tags.map(tag => (
           <TagCollapse
             tagName={tag}
-            reposArray={props.reposArray}
+            reposArray={this.props.reposArray}
             key={tag}
-            tagsApplied={props.tagsApplied}
+            tagsApplied={this.props.tagsApplied}
           />
         ))}
         <h2>Unsorted Repos</h2>
+        <Button color="primary" onClick={() => this.toggle()}>Toggle Unsorted Repos</Button>
+        <Collapse isOpen={this.state.unsortedCollapse}>
         <div className="unsorted repos-wrapper">
           {unsortedRepos.map(repo => (
             <Repo
@@ -37,29 +51,10 @@ const TagsView = props => {
             />
           ))}
         </div>
+        </Collapse>
       </div>
-      {/* <div className="repos-wrapper">
-        {props.reposArray
-          .sort((a, b) =>
-            a.sortDate < b.sortDate ? 1 : b.sortDate < a.sortDate ? -1 : 0
-          )
-          .map(repo => (
-            <Repo
-              name={repo.name}
-              key={repo.name}
-              description={repo.description}
-              language={repo.language}
-              url={repo.html_url}
-              tags={repo.tags || null}
-              updated={repo.updated_at}
-              stars={repo.stargazers_count}
-              url={repo.svn_url}
-              site={repo.homepage}
-            />
-          ))}
-      </div> */}
     </div>
   );
-};
+}}
 
 export default TagsView;
