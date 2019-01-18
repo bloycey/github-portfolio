@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import { Collapse } from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import Repo from "../Repo";
 import "../../App.css";
 
 export default class TagCollapse extends Component {
   state = {
     filteredArray: [],
-    unsorted: []
+    unsorted: [],
+    collapse: false
   };
 
   componentDidMount() {
@@ -25,28 +28,50 @@ export default class TagCollapse extends Component {
     }
   }
 
+  toggle = () => {
+    this.setState({
+      collapse: !this.state.collapse
+    });
+  };
+
   render() {
+    const plusMinus =
+      this.state.collapse == true ? (
+        <FontAwesomeIcon icon={faMinus} />
+      ) : (
+        <FontAwesomeIcon icon={faPlus} />
+      );
     const tagName = this.props.tagName;
     const tagsApplied = this.props.tagsApplied;
     return (
       <div className="tagCollapse">
-        <h2>{this.props.tagName}</h2>
-        <div className="tagRepos repos-wrapper">
-          {this.state.filteredArray.map(repo => (
-            <Repo
-              name={repo.name}
-              key={repo.name}
-              description={repo.description}
-              language={repo.language}
-              url={repo.html_url}
-              tags={repo.tags || null}
-              updated={repo.updated_at}
-              stars={repo.stargazers_count}
-              url={repo.svn_url}
-              site={repo.homepage}
-            />
-          ))}
+        <h2 />
+        <div className="toggle-wrapper" onClick={() => this.toggle()}>
+          <h3>{this.props.tagName}</h3>
+          {plusMinus}
         </div>
+        <Collapse isOpen={this.state.collapse}>
+          <div className="tagRepos repos-wrapper">
+            {this.state.filteredArray
+              .sort((a, b) =>
+                a.sortDate < b.sortDate ? 1 : b.sortDate < a.sortDate ? -1 : 0
+              )
+              .map(repo => (
+                <Repo
+                  name={repo.name}
+                  key={repo.name}
+                  description={repo.description}
+                  language={repo.language}
+                  url={repo.html_url}
+                  tags={repo.tags || null}
+                  updated={repo.updated_at}
+                  stars={repo.stargazers_count}
+                  url={repo.svn_url}
+                  site={repo.homepage}
+                />
+              ))}
+          </div>
+        </Collapse>
       </div>
     );
   }

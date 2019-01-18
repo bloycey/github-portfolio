@@ -188,6 +188,13 @@ a.user-card {
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
+  position: relative;
+}
+
+.loading-spinner {
+  position: absolute;
+  top: 15px;
+  right: 15px;
 }
 
 .profile-header-text h1 {
@@ -346,4 +353,13 @@ html [type="button"] {
 
 .filter-btn:focus {
   box-shadow: none;
+}
+
+.toggle-wrapper {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ffffff;
+  align-items: center;
+  margin-bottom: 30px;
+  cursor: pointer;
 }

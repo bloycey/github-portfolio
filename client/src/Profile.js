@@ -12,7 +12,8 @@ import {
   faListAlt,
   faHashtag,
   faCode,
-  faChartPie
+  faChartPie,
+  faSpinner
 } from "@fortawesome/free-solid-svg-icons";
 
 class Profile extends React.Component {
@@ -162,6 +163,13 @@ class Profile extends React.Component {
                   />
                 </Col>
                 <Col xs="9" className="profile-header-text">
+                  {!this.state.reposFetched && (
+                    <FontAwesomeIcon
+                      className="loading-spinner"
+                      icon={faSpinner}
+                      spin
+                    />
+                  )}
                   <h1 className="uppercase">{this.state.userData.name}</h1>
                   <h2 className="font-light">{username}</h2>
                 </Col>
@@ -177,53 +185,54 @@ class Profile extends React.Component {
           </Row>
           <Row className="row-padded">
             <Col md={{ size: 10, offset: 1 }} className="no-padding-left-right">
-              {this.state.reposFetched && (
-                <div className="filter-controls">
-                  <Button
-                    className={
-                      this.state.view == "all"
-                        ? "filter-btn selected"
-                        : "filter-btn"
-                    }
-                    onClick={() => this.changeView("all")}
-                  >
-                    <FontAwesomeIcon icon={faListAlt} /> All Repos
-                  </Button>
-                  <Button
-                    className={
-                      this.state.view == "tags"
-                        ? "filter-btn selected"
-                        : "filter-btn"
-                    }
-                    onClick={() => this.changeView("tags")}
-                  >
-                    <FontAwesomeIcon icon={faHashtag} /> Sort by Tag
-                  </Button>
-                  <Button
-                    className={
-                      this.state.view == "language"
-                        ? "filter-btn selected"
-                        : "filter-btn"
-                    }
-                    onClick={() => this.changeView("language")}
-                  >
-                    <FontAwesomeIcon icon={faCode} />
-                    Sort by Language
-                  </Button>
-                  <Button
-                    className={
-                      this.state.view == "stats"
-                        ? "filter-btn selected"
-                        : "filter-btn"
-                    }
-                    onClick={() => this.changeView("stats")}
-                  >
-                    <FontAwesomeIcon icon={faChartPie} />
-                    Statistics
-                  </Button>
-                </div>
-              )}
-              {!this.state.reposFetched && <h4>Loading Repository Data</h4>}
+              <div className="filter-controls">
+                <Button
+                  className={
+                    this.state.view == "all"
+                      ? "filter-btn selected"
+                      : "filter-btn"
+                  }
+                  onClick={() => this.changeView("all")}
+                  disabled={this.state.reposFetched ? "" : true}
+                >
+                  <FontAwesomeIcon icon={faListAlt} /> All Repos
+                </Button>
+                <Button
+                  className={
+                    this.state.view == "tags"
+                      ? "filter-btn selected"
+                      : "filter-btn"
+                  }
+                  onClick={() => this.changeView("tags")}
+                  disabled={this.state.reposFetched ? "" : true}
+                >
+                  <FontAwesomeIcon icon={faHashtag} /> Sort by Tag
+                </Button>
+                <Button
+                  className={
+                    this.state.view == "language"
+                      ? "filter-btn selected"
+                      : "filter-btn"
+                  }
+                  onClick={() => this.changeView("language")}
+                  disabled={this.state.reposFetched ? "" : true}
+                >
+                  <FontAwesomeIcon icon={faCode} />
+                  Sort by Language
+                </Button>
+                <Button
+                  className={
+                    this.state.view == "stats"
+                      ? "filter-btn selected"
+                      : "filter-btn"
+                  }
+                  onClick={() => this.changeView("stats")}
+                  disabled={this.state.reposFetched ? "" : true}
+                >
+                  <FontAwesomeIcon icon={faChartPie} />
+                  Statistics
+                </Button>
+              </div>
             </Col>
           </Row>
           <Row className="row-padded">
