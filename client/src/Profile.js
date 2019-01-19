@@ -257,7 +257,7 @@ class Profile extends React.Component {
               )}
 
               {this.state.view === "info" && this.state.reposArray && (
-                <InfoView reposArray={this.state.reposArray} />
+                <InfoView userData={this.state.userData} />
               )}
             </Col>
           </Row>

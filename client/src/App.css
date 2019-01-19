@@ -386,3 +386,12 @@ html [type="button"] {
   font-size: 20px;
   font-weight: 300;
 }
+
+.email-link,
+.email-link:hover,
+.email-link:focus,
+.email-link:visited {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-position: under;
+}
