@@ -5,27 +5,12 @@ import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import Repo from "../Repo";
 import "../../App.css";
 
-export default class TagCollapse extends Component {
+export default class LanguageCollapse extends Component {
   state = {
-    filteredArray: [],
     collapse: false
   };
 
-  componentDidMount() {
-    if (this.props.tagsApplied == true) {
-      this.props.reposArray.forEach(repo => {
-        if (repo.tags.names.length > 0) {
-          if (repo.tags.names.includes(this.props.tagName)) {
-            let filteredArray = this.state.filteredArray;
-            filteredArray.push(repo);
-            this.setState({
-              filteredArray
-            });
-          }
-        }
-      });
-    }
-  }
+  componentDidMount() {}
 
   toggle = () => {
     this.setState({
@@ -40,21 +25,23 @@ export default class TagCollapse extends Component {
       ) : (
         <FontAwesomeIcon icon={faPlus} />
       );
-    const tagName = this.props.tagName;
-    const tagsApplied = this.props.tagsApplied;
+    const language = this.props.language;
     return (
-      <div className="tagCollapse">
+      <div className="languageCollapse">
         <h2 />
         <div className="toggle-wrapper" onClick={() => this.toggle()}>
-          <h3>{this.props.tagName}</h3>
+          <h3>{this.props.language}</h3>
           {plusMinus}
         </div>
         <Collapse isOpen={this.state.collapse}>
           <div className="tagRepos repos-wrapper">
-            {this.state.filteredArray
+            {this.props.reposArray
               .sort((a, b) =>
                 a.sortDate < b.sortDate ? 1 : b.sortDate < a.sortDate ? -1 : 0
               )
+              .filter(repo => {
+                return repo.language == this.props.language;
+              })
               .map(repo => (
                 <Repo
                   name={repo.name}

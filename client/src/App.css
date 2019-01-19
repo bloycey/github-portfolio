@@ -363,3 +363,9 @@ html [type="button"] {
   margin-bottom: 30px;
   cursor: pointer;
 }
+
+.tagCollapse,
+.languageCollapse {
+  display: block;
+  width: 100%;
+}

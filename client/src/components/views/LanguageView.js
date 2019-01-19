@@ -1,30 +1,36 @@
 import React, { Component } from "react";
 import Repo from "../Repo";
 import "../../App.css";
+import LanguageCollapse from "./LanguageCollapse";
 
-const LanguageView = props => {
-  return (
-    <div className="repos-wrapper">
-      {props.reposArray
-        .sort((a, b) =>
-          a.sortDate < b.sortDate ? 1 : b.sortDate < a.sortDate ? -1 : 0
-        )
-        .map(repo => (
-          <Repo
-            name={repo.name}
-            key={repo.name}
-            description={repo.description}
-            language={repo.language}
-            url={repo.html_url}
-            tags={repo.tags || null}
-            updated={repo.updated_at}
-            stars={repo.stargazers_count}
-            url={repo.svn_url}
-            site={repo.homepage}
+class LanguageView extends React.Component {
+  state = {
+    languages: []
+  };
+
+  componentDidMount() {
+    const languages = new Set();
+    this.props.reposArray.forEach(repo => {
+      languages.add(repo.language);
+    });
+    this.setState({
+      languages: Array.from(languages)
+    });
+  }
+
+  render() {
+    return (
+      <div className="repos-wrapper">
+        {this.state.languages.sort().map(language => (
+          <LanguageCollapse
+            language={language}
+            reposArray={this.props.reposArray}
+            key={language}
           />
         ))}
-    </div>
-  );
-};
+      </div>
+    );
+  }
+}
 
 export default LanguageView;

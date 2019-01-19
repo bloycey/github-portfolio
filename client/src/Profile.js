@@ -193,7 +193,7 @@ class Profile extends React.Component {
                       : "filter-btn"
                   }
                   onClick={() => this.changeView("all")}
-                  disabled={this.state.reposFetched ? "" : true}
+                  disabled={this.state.reposFetched ? false : true}
                 >
                   <FontAwesomeIcon icon={faListAlt} /> All Repos
                 </Button>
@@ -204,7 +204,7 @@ class Profile extends React.Component {
                       : "filter-btn"
                   }
                   onClick={() => this.changeView("tags")}
-                  disabled={this.state.reposFetched ? "" : true}
+                  disabled={this.state.reposFetched ? false : true}
                 >
                   <FontAwesomeIcon icon={faHashtag} /> Sort by Tag
                 </Button>
@@ -215,7 +215,7 @@ class Profile extends React.Component {
                       : "filter-btn"
                   }
                   onClick={() => this.changeView("language")}
-                  disabled={this.state.reposFetched ? "" : true}
+                  disabled={this.state.reposFetched ? false : true}
                 >
                   <FontAwesomeIcon icon={faCode} />
                   Sort by Language
@@ -227,7 +227,7 @@ class Profile extends React.Component {
                       : "filter-btn"
                   }
                   onClick={() => this.changeView("stats")}
-                  disabled={this.state.reposFetched ? "" : true}
+                  disabled={this.state.reposFetched ? false : true}
                 >
                   <FontAwesomeIcon icon={faChartPie} />
                   Statistics
