@@ -101,7 +101,8 @@ class Profile extends React.Component {
               this.setState(
                 {
                   repos: repoList,
-                  reposArray: reposArray
+                  reposArray: reposArray,
+                  reposFetched: true
                 },
                 () => {
                   let topicsList = new Set();
@@ -127,14 +128,14 @@ class Profile extends React.Component {
                   Promise.all(setTags).then(completed => {
                     console.log("all tags applied!");
                     this.setState({
-                      tagsApplied: true
+                      // tagsApplied: true
                     });
                   });
                   this.getRateLimit()
                     .then(res => {
                       this.setState({
                         rateLimit: res,
-                        reposFetched: true
+                        tagsApplied: true
                       });
                     })
                     .catch(err => console.log(err));
@@ -157,14 +158,19 @@ class Profile extends React.Component {
           <Row className="profile-header-outer-wrapper row-padded">
             <Col md={{ size: 10, offset: 1 }}>
               <Row className="profile-header-row">
-                <Col xs="3" className="profile-header-img-wrapper">
+                <Col
+                  xs="3"
+                  md="5"
+                  lg="3"
+                  className="profile-header-img-wrapper d-none d-md-block"
+                >
                   <img
                     src={this.state.userData.avatar_url}
                     className="img-fluid"
                   />
                 </Col>
-                <Col xs="9" className="profile-header-text">
-                  {!this.state.reposFetched && (
+                <Col xs="12" md="7" lg="9" className="profile-header-text">
+                  {!this.state.tagsApplied && (
                     <FontAwesomeIcon
                       className="loading-spinner"
                       icon={faSpinner}
@@ -217,7 +223,7 @@ class Profile extends React.Component {
                       : "filter-btn"
                   }
                   onClick={() => this.changeView("tags")}
-                  disabled={this.state.reposFetched ? false : true}
+                  disabled={this.state.tagsApplied ? false : true}
                 >
                   <FontAwesomeIcon icon={faHashtag} /> Sort by Tag
                 </Button>

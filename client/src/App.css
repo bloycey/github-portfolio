@@ -183,7 +183,7 @@ a.user-card {
 .profile-header-text {
   background-color: #353b4d;
   color: #fff;
-  padding: 40px;
+  padding: 35px;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -394,4 +394,54 @@ html [type="button"] {
   color: #fff;
   text-decoration: underline;
   text-underline-position: under;
+}
+
+@media only screen and (max-width: 1200px) {
+  .single-repo-wrapper {
+    width: calc(50% - 15px);
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .filter-controls {
+    flex-wrap: wrap;
+  }
+
+  .filter-controls button {
+    width: 48%;
+    margin-bottom: 15px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .profile-header-outer-wrapper {
+    padding-top: 30px;
+  }
+
+  .single-repo-wrapper {
+    width: 100%;
+  }
+
+  .filter-controls button {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .profile-header-text {
+    padding: 25px 25px 20px 25px;
+  }
+
+  .profile-header-text h1 {
+    margin-bottom: 10px;
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  .profile-header-text h2 {
+    font-size: 24px;
+  }
+
+  .description {
+    font-size: 18px;
+  }
 }
