@@ -6,14 +6,15 @@ import Repo from "./components/Repo";
 import AllRepos from "./components/views/AllRepos";
 import TagsView from "./components/views/TagsView";
 import LanguageView from "./components/views/LanguageView";
-import StatsView from "./components/views/StatsView";
+import InfoView from "./components/views/InfoView";
 
 import {
   faListAlt,
   faHashtag,
   faCode,
   faChartPie,
-  faSpinner
+  faSpinner,
+  faUser
 } from "@fortawesome/free-solid-svg-icons";
 
 class Profile extends React.Component {
@@ -199,17 +200,6 @@ class Profile extends React.Component {
                 </Button>
                 <Button
                   className={
-                    this.state.view == "tags"
-                      ? "filter-btn selected"
-                      : "filter-btn"
-                  }
-                  onClick={() => this.changeView("tags")}
-                  disabled={this.state.reposFetched ? false : true}
-                >
-                  <FontAwesomeIcon icon={faHashtag} /> Sort by Tag
-                </Button>
-                <Button
-                  className={
                     this.state.view == "language"
                       ? "filter-btn selected"
                       : "filter-btn"
@@ -222,15 +212,26 @@ class Profile extends React.Component {
                 </Button>
                 <Button
                   className={
-                    this.state.view == "stats"
+                    this.state.view == "tags"
                       ? "filter-btn selected"
                       : "filter-btn"
                   }
-                  onClick={() => this.changeView("stats")}
+                  onClick={() => this.changeView("tags")}
                   disabled={this.state.reposFetched ? false : true}
                 >
-                  <FontAwesomeIcon icon={faChartPie} />
-                  Statistics
+                  <FontAwesomeIcon icon={faHashtag} /> Sort by Tag
+                </Button>
+                <Button
+                  className={
+                    this.state.view == "info"
+                      ? "filter-btn selected"
+                      : "filter-btn"
+                  }
+                  onClick={() => this.changeView("info")}
+                  disabled={this.state.reposFetched ? false : true}
+                >
+                  <FontAwesomeIcon icon={faUser} />
+                  About @{username}
                 </Button>
               </div>
             </Col>
@@ -255,8 +256,8 @@ class Profile extends React.Component {
                 <LanguageView reposArray={this.state.reposArray} />
               )}
 
-              {this.state.view === "stats" && this.state.reposArray && (
-                <StatsView reposArray={this.state.reposArray} />
+              {this.state.view === "info" && this.state.reposArray && (
+                <InfoView reposArray={this.state.reposArray} />
               )}
             </Col>
           </Row>
