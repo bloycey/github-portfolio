@@ -294,9 +294,10 @@ class Profile extends React.Component {
                   <InfoView userData={this.state.userData} />
                 )}
 
-                {this.state.userData.public_repos === 0 && (
-                  <p>This user has no public repos to display.</p>
-                )}
+                {this.state.userData.public_repos === 0 &&
+                  this.state.view !== "info" && (
+                    <p>This user has no public repos to display.</p>
+                  )}
               </Col>
             </Row>
           </Container>

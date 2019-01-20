@@ -276,6 +276,7 @@ a.user-card {
   padding-bottom: 20px;
   margin-bottom: 30px;
   position: relative;
+  word-break: break-word;
 }
 
 .repo-description {
