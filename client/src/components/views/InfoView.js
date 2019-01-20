@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Repo from "../Repo";
 import { format } from "date-fns";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import "../../App.css";
 
 const InfoView = props => {
@@ -26,7 +28,15 @@ const InfoView = props => {
       {props.userData.blog && (
         <div className="info-block">
           <h2 className="d-inline-block">Website:</h2>
-          <p className="d-inline-block">{props.userData.blog}</p>
+          <p className="d-inline-block">
+            <a
+              href={props.userData.blog}
+              target="_blank"
+              className="email-link"
+            >
+              {props.userData.blog}
+            </a>
+          </p>
         </div>
       )}
       {props.userData.email && (
@@ -39,6 +49,15 @@ const InfoView = props => {
           </p>
         </div>
       )}
+      <div className="info-block">
+        <a
+          href={props.userData.html_url}
+          className="visit-profile"
+          target="_blank"
+        >
+          Visit Profile <FontAwesomeIcon icon={faExternalLinkAlt} />
+        </a>
+      </div>
     </div>
   );
 };

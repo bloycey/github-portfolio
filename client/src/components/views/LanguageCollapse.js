@@ -7,10 +7,25 @@ import "../../App.css";
 
 export default class LanguageCollapse extends Component {
   state = {
-    collapse: false
+    collapse: false,
+    languageLength: 0,
+    languageArray: []
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    const languageArray = this.props.reposArray
+      .sort((a, b) =>
+        a.sortDate < b.sortDate ? 1 : b.sortDate < a.sortDate ? -1 : 0
+      )
+      .filter(repo => {
+        return repo.language == this.props.language;
+      });
+
+    this.setState({
+      languageArray,
+      languageLength: languageArray.length
+    });
+  }
 
   toggle = () => {
     this.setState({
@@ -30,32 +45,29 @@ export default class LanguageCollapse extends Component {
       <div className="languageCollapse">
         <h2 />
         <div className="toggle-wrapper" onClick={() => this.toggle()}>
-          <h3>{this.props.language}</h3>
+          <h3>
+            {this.props.language}{" "}
+            <span className="numItems">{this.state.languageLength}</span>
+          </h3>
           {plusMinus}
         </div>
         <Collapse isOpen={this.state.collapse}>
           <div className="tagRepos repos-wrapper">
-            {this.props.reposArray
-              .sort((a, b) =>
-                a.sortDate < b.sortDate ? 1 : b.sortDate < a.sortDate ? -1 : 0
-              )
-              .filter(repo => {
-                return repo.language == this.props.language;
-              })
-              .map(repo => (
-                <Repo
-                  name={repo.name}
-                  key={repo.name}
-                  description={repo.description}
-                  language={repo.language}
-                  url={repo.html_url}
-                  tags={repo.tags || null}
-                  updated={repo.updated_at}
-                  stars={repo.stargazers_count}
-                  url={repo.svn_url}
-                  site={repo.homepage}
-                />
-              ))}
+            {this.state.languageArray.map(repo => (
+              <Repo
+                name={repo.name}
+                key={repo.name}
+                description={repo.description}
+                language={repo.language}
+                url={repo.html_url}
+                tags={repo.tags || null}
+                updated={repo.updated_at}
+                stars={repo.stargazers_count}
+                url={repo.svn_url}
+                site={repo.homepage}
+                forked={repo.fork}
+              />
+            ))}
           </div>
         </Collapse>
       </div>

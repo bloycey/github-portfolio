@@ -40,13 +40,16 @@ export default class TagCollapse extends Component {
       ) : (
         <FontAwesomeIcon icon={faPlus} />
       );
+    const numTags = this.state.filteredArray.length;
     const tagName = this.props.tagName;
     const tagsApplied = this.props.tagsApplied;
     return (
       <div className="tagCollapse">
         <h2 />
         <div className="toggle-wrapper" onClick={() => this.toggle()}>
-          <h3>{this.props.tagName}</h3>
+          <h3>
+            {this.props.tagName} <span className="numItems">{numTags}</span>
+          </h3>
           {plusMinus}
         </div>
         <Collapse isOpen={this.state.collapse}>
@@ -67,6 +70,7 @@ export default class TagCollapse extends Component {
                   stars={repo.stargazers_count}
                   url={repo.svn_url}
                   site={repo.homepage}
+                  forked={repo.fork}
                 />
               ))}
           </div>

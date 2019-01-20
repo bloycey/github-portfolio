@@ -14,7 +14,8 @@ import {
   faCode,
   faChartPie,
   faSpinner,
-  faUser
+  faUser,
+  faExternalLinkAlt
 } from "@fortawesome/free-solid-svg-icons";
 
 class Profile extends React.Component {
@@ -27,7 +28,8 @@ class Profile extends React.Component {
     reposArray: [],
     tags: "",
     tagsApplied: false,
-    reposFetched: false
+    reposFetched: false,
+    badUser: false
   };
 
   changeView = view => {
@@ -83,6 +85,14 @@ class Profile extends React.Component {
     if (!this.state.userData) {
       this.getUserInfo(username)
         .then(res => {
+          if (res.message !== undefined) {
+            if (res.message === "Not Found") {
+              this.setState({
+                badUser: true
+              });
+              return false;
+            }
+          }
           this.setState({
             userData: res,
             numRepos: res.public_repos
@@ -152,124 +162,147 @@ class Profile extends React.Component {
     const repos = this.state.repos;
     const reposArray = this.state.reposArray;
     const username = this.props.match.params.user;
-    return (
-      <div className="profile-wrapper">
-        <Container className="narrow-container">
-          <Row className="profile-header-outer-wrapper row-padded">
-            <Col md={{ size: 10, offset: 1 }}>
-              <Row className="profile-header-row">
-                <Col
-                  xs="3"
-                  md="5"
-                  lg="3"
-                  className="profile-header-img-wrapper d-none d-md-block"
-                >
-                  <img
-                    src={this.state.userData.avatar_url}
-                    className="img-fluid"
-                  />
-                </Col>
-                <Col xs="12" md="7" lg="9" className="profile-header-text">
-                  {!this.state.tagsApplied && (
-                    <FontAwesomeIcon
-                      className="loading-spinner"
-                      icon={faSpinner}
-                      spin
+
+    if (this.state.badUser === true) {
+      return <p>Username doesn't exist</p>;
+    } else {
+      return (
+        <div className="profile-wrapper">
+          <Container className="narrow-container">
+            <Row className="profile-header-outer-wrapper row-padded">
+              <Col md={{ size: 10, offset: 1 }}>
+                <Row className="profile-header-row">
+                  <Col
+                    xs="3"
+                    md="5"
+                    lg="3"
+                    className="profile-header-img-wrapper d-none d-md-block"
+                  >
+                    <img
+                      src={this.state.userData.avatar_url}
+                      className="img-fluid"
+                    />
+                  </Col>
+                  <Col xs="12" md="7" lg="9" className="profile-header-text">
+                    {!this.state.tagsApplied && (
+                      <FontAwesomeIcon
+                        className="loading-spinner"
+                        icon={faSpinner}
+                        spin
+                      />
+                    )}
+                    <h1 className="uppercase">{this.state.userData.name}</h1>
+                    <h2 className="font-light">{username}</h2>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+            <Row className="row-padded">
+              <Col
+                md={{ size: 10, offset: 1 }}
+                className="no-padding-left-right"
+              >
+                <div className="description">
+                  {this.state.userData.bio || null}
+                </div>
+              </Col>
+            </Row>
+            <Row className="row-padded">
+              <Col
+                md={{ size: 10, offset: 1 }}
+                className="no-padding-left-right"
+              >
+                <div className="filter-controls">
+                  <Button
+                    className={
+                      this.state.view == "all"
+                        ? "filter-btn selected"
+                        : "filter-btn"
+                    }
+                    onClick={() => this.changeView("all")}
+                    disabled={this.state.reposFetched ? false : true}
+                  >
+                    <FontAwesomeIcon icon={faListAlt} /> All Repos
+                  </Button>
+                  <Button
+                    className={
+                      this.state.view == "language"
+                        ? "filter-btn selected"
+                        : "filter-btn"
+                    }
+                    onClick={() => this.changeView("language")}
+                    disabled={this.state.reposFetched ? false : true}
+                  >
+                    <FontAwesomeIcon icon={faCode} />
+                    Sort by Language
+                  </Button>
+                  <Button
+                    className={
+                      this.state.view == "tags"
+                        ? "filter-btn selected"
+                        : "filter-btn"
+                    }
+                    onClick={() => this.changeView("tags")}
+                    disabled={this.state.tagsApplied ? false : true}
+                  >
+                    <FontAwesomeIcon icon={faHashtag} /> Sort by Tag
+                  </Button>
+                  <Button
+                    className={
+                      this.state.view == "info"
+                        ? "filter-btn selected"
+                        : "filter-btn"
+                    }
+                    onClick={() => this.changeView("info")}
+                    disabled={this.state.reposFetched ? false : true}
+                  >
+                    <FontAwesomeIcon icon={faUser} />
+                    About
+                  </Button>
+                </div>
+              </Col>
+            </Row>
+            <Row className="row-padded">
+              <Col
+                md={{ size: 10, offset: 1 }}
+                className="no-padding-left-right"
+              >
+                {this.state.view === "all" &&
+                  this.state.reposArray &&
+                  this.state.userData.public_repos !== 0 && (
+                    <AllRepos reposArray={this.state.reposArray} />
+                  )}
+
+                {this.state.view === "tags" &&
+                  this.state.reposArray &&
+                  this.state.tagsApplied &&
+                  this.state.userData.public_repos !== 0 && (
+                    <TagsView
+                      reposArray={this.state.reposArray}
+                      tagsApplied={this.state.tagsApplied}
+                      tags={this.state.tags}
                     />
                   )}
-                  <h1 className="uppercase">{this.state.userData.name}</h1>
-                  <h2 className="font-light">{username}</h2>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-          <Row className="row-padded">
-            <Col md={{ size: 10, offset: 1 }} className="no-padding-left-right">
-              <div className="description">
-                {this.state.userData.bio || null}
-              </div>
-            </Col>
-          </Row>
-          <Row className="row-padded">
-            <Col md={{ size: 10, offset: 1 }} className="no-padding-left-right">
-              <div className="filter-controls">
-                <Button
-                  className={
-                    this.state.view == "all"
-                      ? "filter-btn selected"
-                      : "filter-btn"
-                  }
-                  onClick={() => this.changeView("all")}
-                  disabled={this.state.reposFetched ? false : true}
-                >
-                  <FontAwesomeIcon icon={faListAlt} /> All Repos
-                </Button>
-                <Button
-                  className={
-                    this.state.view == "language"
-                      ? "filter-btn selected"
-                      : "filter-btn"
-                  }
-                  onClick={() => this.changeView("language")}
-                  disabled={this.state.reposFetched ? false : true}
-                >
-                  <FontAwesomeIcon icon={faCode} />
-                  Sort by Language
-                </Button>
-                <Button
-                  className={
-                    this.state.view == "tags"
-                      ? "filter-btn selected"
-                      : "filter-btn"
-                  }
-                  onClick={() => this.changeView("tags")}
-                  disabled={this.state.tagsApplied ? false : true}
-                >
-                  <FontAwesomeIcon icon={faHashtag} /> Sort by Tag
-                </Button>
-                <Button
-                  className={
-                    this.state.view == "info"
-                      ? "filter-btn selected"
-                      : "filter-btn"
-                  }
-                  onClick={() => this.changeView("info")}
-                  disabled={this.state.reposFetched ? false : true}
-                >
-                  <FontAwesomeIcon icon={faUser} />
-                  About @{username}
-                </Button>
-              </div>
-            </Col>
-          </Row>
-          <Row className="row-padded">
-            <Col md={{ size: 10, offset: 1 }} className="no-padding-left-right">
-              {this.state.view === "all" && this.state.reposArray && (
-                <AllRepos reposArray={this.state.reposArray} />
-              )}
 
-              {this.state.view === "tags" &&
-                this.state.reposArray &&
-                this.state.tagsApplied && (
-                  <TagsView
-                    reposArray={this.state.reposArray}
-                    tagsApplied={this.state.tagsApplied}
-                    tags={this.state.tags}
-                  />
+                {this.state.view === "language" &&
+                  this.state.reposArray &&
+                  this.state.userData.public_repos !== 0 && (
+                    <LanguageView reposArray={this.state.reposArray} />
+                  )}
+
+                {this.state.view === "info" && this.state.reposArray && (
+                  <InfoView userData={this.state.userData} />
                 )}
 
-              {this.state.view === "language" && this.state.reposArray && (
-                <LanguageView reposArray={this.state.reposArray} />
-              )}
-
-              {this.state.view === "info" && this.state.reposArray && (
-                <InfoView userData={this.state.userData} />
-              )}
-            </Col>
-          </Row>
-        </Container>
-      </div>
-    );
+                {this.state.userData.public_repos === 0 && (
+                  <p>This user has no public repos to display.</p>
+                )}
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      );
+    }
   }
 }
 

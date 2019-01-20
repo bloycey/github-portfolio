@@ -275,6 +275,7 @@ a.user-card {
   border-bottom: 1px solid rgba(255, 255, 255, 0.6);
   padding-bottom: 20px;
   margin-bottom: 30px;
+  position: relative;
 }
 
 .repo-description {
@@ -375,6 +376,7 @@ html [type="button"] {
   color: #ffffff;
   padding: 60px 80px;
   margin-top: 30px;
+  margin-bottom: 60px;
 }
 
 .info-block h2 {
@@ -396,6 +398,60 @@ html [type="button"] {
   text-underline-position: under;
 }
 
+.toggle-wrapper h3 {
+  display: flex;
+  align-items: center;
+}
+
+.numItems {
+  background-color: #5cffe2;
+  color: #222222;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: initial;
+  margin-left: 10px;
+}
+
+.search-btn {
+  border-radius: 0;
+  background-color: #a0c95d;
+  color: #222;
+}
+
+#home-search {
+  margin-top: 60px;
+}
+
+.visit-profile,
+.visit-profile:hover,
+.visit-profile:focus,
+.visit-profile:visited {
+  margin-top: 40px;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 2px;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.forked {
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  transform: translateY(45%);
+  background-color: #3d4049;
+  padding-right: 10px;
+  font-size: 14px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+}
+
 @media only screen and (max-width: 1200px) {
   .single-repo-wrapper {
     width: calc(50% - 15px);
@@ -414,6 +470,10 @@ html [type="button"] {
 }
 
 @media only screen and (max-width: 767px) {
+  .toggle-wrapper h3 {
+    font-size: 24px;
+  }
+
   .profile-header-outer-wrapper {
     padding-top: 30px;
   }
@@ -443,5 +503,10 @@ html [type="button"] {
 
   .description {
     font-size: 18px;
+  }
+
+  .info-wrapper {
+    padding: 30px;
+    margin-top: 0px;
   }
 }

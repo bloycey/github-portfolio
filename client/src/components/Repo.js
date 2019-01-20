@@ -6,7 +6,8 @@ import {
   faCode,
   faLaptopCode,
   faStar,
-  faExternalLinkAlt
+  faExternalLinkAlt,
+  faCodeBranch
 } from "@fortawesome/free-solid-svg-icons";
 import Tag from "./Tag";
 import "../App.css";
@@ -28,7 +29,14 @@ class Repo extends React.Component {
               <FontAwesomeIcon icon={faStar} /> {this.props.stars}
             </span>
           )}
+          {this.props.forked}
+          {this.props.forked && (
+            <span className="forked d-inline-block">
+              <FontAwesomeIcon icon={faCodeBranch} /> Forked Repo
+            </span>
+          )}
         </h2>
+
         {this.props.description && (
           <div className="repo-description">
             {this.props.description}

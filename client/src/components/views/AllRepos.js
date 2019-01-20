@@ -21,6 +21,7 @@ const AllRepos = props => {
             stars={repo.stargazers_count}
             url={repo.svn_url}
             site={repo.homepage}
+            forked={repo.fork}
           />
         ))}
     </div>

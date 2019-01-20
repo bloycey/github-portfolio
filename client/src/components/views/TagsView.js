@@ -40,7 +40,9 @@ class TagsView extends Component {
             />
           ))}
           <div className="toggle-wrapper" onClick={() => this.toggle()}>
-            <h3>Unsorted</h3>
+            <h3>
+              Unsorted <span className="numItems">{unsortedRepos.length}</span>
+            </h3>
             {plusMinus}
           </div>
           <Collapse isOpen={this.state.unsortedCollapse}>
