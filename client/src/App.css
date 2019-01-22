@@ -102,7 +102,7 @@ p {
 
 .github-search-input {
   width: 350px;
-  height: 60px;
+  height: 70px;
   padding-left: 15px;
   border: 0;
 }
@@ -423,6 +423,7 @@ html [type="button"] {
   border-radius: 0;
   background-color: #a0c95d;
   color: #222;
+  width: 70px;
 }
 
 #home-search {
@@ -510,4 +511,47 @@ html [type="button"] {
     padding: 30px;
     margin-top: 0px;
   }
+}
+
+/*******404 Page******/
+
+.fourohfour-wrapper {
+  color: #fff;
+  height: 100vh;
+  background-color: #232733;
+}
+
+.fourohfour-heading {
+  font-size: 195px;
+  letter-spacing: 0;
+  margin-top: 20%;
+}
+
+.usernotfound-heading {
+  font-size: 75px;
+  margin-top: 20%;
+  text-transform: uppercase;
+}
+
+.fourohfour-text p {
+  font-size: 24px;
+  margin-bottom: 0;
+}
+
+.still-lost {
+  padding-top: 7px;
+  opacity: 0.6;
+}
+
+.still-lost p {
+  font-size: 14px;
+}
+
+.still-lost a {
+  color: #a1c95e;
+  font-size: 14px;
+}
+
+.fourohfour-wrapper .github-search-input {
+  width: 470px;
 }

@@ -7,6 +7,7 @@ import AllRepos from "./components/views/AllRepos";
 import TagsView from "./components/views/TagsView";
 import LanguageView from "./components/views/LanguageView";
 import InfoView from "./components/views/InfoView";
+import UserNotFound from "./components/UserNotFound";
 
 import {
   faListAlt,
@@ -164,7 +165,7 @@ class Profile extends React.Component {
     const username = this.props.match.params.user;
 
     if (this.state.badUser === true) {
-      return <p>Username doesn't exist</p>;
+      return <UserNotFound />;
     } else {
       return (
         <div className="profile-wrapper">

@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import {
+  Link,
+  BrowserRouter,
+  Route,
+  Redirect,
+  withRouter
+} from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,7 +16,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "../App.css";
 
-class FourOhFour extends Component {
+class UserNotFound extends Component {
   state = {
     githubName: ""
   };
@@ -23,8 +29,8 @@ class FourOhFour extends Component {
     this.props.history.push(path);
   };
 
-  goToProfile = user => {
-    this.props.history.push(`/users/${user}`);
+  goToProfile = () => {
+    this.props.history.push(`/users/${this.state.githubName}`);
   };
 
   render() {
@@ -33,16 +39,16 @@ class FourOhFour extends Component {
         <Container>
           <Row>
             <Col md={{ size: 8, offset: 2 }}>
-              <h1 className="fourohfour-heading text-center">404</h1>
+              <h1 className="usernotfound-heading text-center">
+                User Not Found
+              </h1>
               <div className="fourohfour-text text-center">
-                <p>Uh oh. This page doesn't exist</p>
-                <p>
-                  Try searching for a github user using the search bar below
-                </p>
+                <p>A typo maybe?</p>
+                <p>Try again using the search bar below</p>
               </div>
               <div className="form-404-wrapper text-center">
                 <form
-                  onSubmit={() => this.goToProfile(this.state.githubName)}
+                  onSubmit={() => this.goToProfile()}
                   id="fourohfour-search"
                   className="d-inline-block"
                 >
@@ -79,4 +85,4 @@ class FourOhFour extends Component {
   }
 }
 
-export default FourOhFour;
+export default withRouter(UserNotFound);

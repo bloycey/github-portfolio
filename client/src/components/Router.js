@@ -9,6 +9,7 @@ const Router = () => (
     <Switch>
       <Route exact path="/" component={App} />
       <Route path="/users/:user" component={Profile} />
+      <Route path="/users/*" component={Profile} />
       <Route component={FourOhFour} />
     </Switch>
   </BrowserRouter>
