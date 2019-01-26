@@ -3,6 +3,7 @@ import { Container, Row, Col, Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format, compareDesc, compareAsc } from "date-fns";
 import Repo from "./components/Repo";
+import Footer from "./components/Footer";
 import AllRepos from "./components/views/AllRepos";
 import TagsView from "./components/views/TagsView";
 import LanguageView from "./components/views/LanguageView";
@@ -302,6 +303,7 @@ class Profile extends React.Component {
               </Col>
             </Row>
           </Container>
+          <Footer />
         </div>
       );
     }

@@ -35,7 +35,8 @@ p {
 .App-header {
   position: relative;
   background-color: #282c34;
-  background-image: url("./img/code-bg.jpg");
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(35, 60, 79, 0.3)),
+    url("./img/code-img-bg.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -554,4 +555,108 @@ html [type="button"] {
 
 .fourohfour-wrapper .github-search-input {
   width: 470px;
+}
+
+/************/
+
+.getstarted-btn {
+  background-color: #85b03b;
+  border-color: #85b03b;
+  color: #fff;
+}
+
+.getstarted-btn:hover {
+  background-color: #85b03b;
+  border-color: #85b03b;
+}
+
+.header-menu-items li {
+  cursor: pointer;
+}
+
+.learn-tags,
+.learn-tags:hover {
+  color: #25b99e;
+}
+.step-wrapper {
+  display: flex;
+}
+
+.step-wrapper .heading {
+  padding-right: 15px;
+  font-weight: 600;
+}
+
+/******FOOTER*****/
+
+.gp-footer {
+  padding-top: 40px;
+  padding-bottom: 30px;
+}
+
+.gp-footer a {
+  color: #fff;
+  text-decoration: underline;
+  font-size: 14px;
+}
+
+.gp-footer p {
+  font-weight: 300;
+  font-size: 14px;
+  opacity: 0.7;
+  padding: 15px 0;
+  color: #fff;
+}
+
+.heart {
+  fill: #ffffff;
+  position: relative;
+  height: 15px;
+  top: 2px;
+  width: 36px;
+  animation-name: pulse;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  .hero-text-wrapper h1 {
+    font-size: 80px;
+  }
+
+  .hero-text-wrapper h1 span {
+    font-size: 63px;
+  }
+
+  .hero-text-wrapper {
+    padding: 30px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .github-search-input {
+    width: calc(100vw - 100px);
+  }
 }

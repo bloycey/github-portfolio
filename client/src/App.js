@@ -3,11 +3,18 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import User from "./components/User";
 import { BrowserRouter, Route, Link, Redirect } from "react-router-dom";
-import { Container } from "reactstrap";
+import {
+  Container,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button
+} from "reactstrap";
 import "./App.css";
 import exampleUser from "./img/example2.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHandPointRight } from "@fortawesome/free-solid-svg-icons";
+import { faChevronCircleRight } from "@fortawesome/free-solid-svg-icons";
 
 class App extends Component {
   state = {
@@ -17,7 +24,8 @@ class App extends Component {
     userSearch: "",
     userResponse: "",
     githubName: "",
-    rateLimit: ""
+    rateLimit: "",
+    howTo: false
   };
 
   static propTypes = {
@@ -26,26 +34,11 @@ class App extends Component {
 
   componentDidMount() {}
 
-  // getRateLimit = async () => {
-  //   const response = await fetch(`/api/getRateLimit`);
-  //   const body = await response.json();
-  //   if (response.status !== 200) throw Error(body.message);
-  //   return body.response;
-  // };
-
-  // handleSearch = async event => {
-  //   console.log("username sent from react");
-  //   const response = await fetch("/api/getUsers", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify({ githubName: this.state.githubName })
-  //   });
-  //   const body = await response.json();
-  //   if (response.status !== 200) throw Error(body.message);
-  //   return body.response;
-  // };
+  toggleHowTo = () => {
+    this.setState({
+      howTo: !this.state.howTo
+    });
+  };
 
   goToProfile = user => {
     console.log("go to profile triggered");
@@ -58,8 +51,8 @@ class App extends Component {
         <div className="App">
           <div className="App-header">
             <ul className="header-menu-items">
-              <li>How to Use</li>
-              <li>About Developer</li>
+              <li onClick={() => this.toggleHowTo()}>How to Use</li>
+              {/* <li>About Developer</li> */}
             </ul>
             <Container>
               <div className="hero-text-wrapper">
@@ -97,7 +90,7 @@ class App extends Component {
                 <div className="input-group">
                   <input
                     className="github-search-input"
-                    placeholder="E.g bloycey"
+                    placeholder="E.g rachelandrew"
                     type="text"
                     value={this.state.githubName}
                     onChange={e =>
@@ -106,82 +99,54 @@ class App extends Component {
                   />
                   <div className="input-group-append">
                     <button className="btn search-btn" type="submit">
-                      <FontAwesomeIcon icon={faHandPointRight} />
+                      <FontAwesomeIcon icon={faChevronCircleRight} />
                     </button>
                   </div>
                 </div>
               </form>
             </Container>
           </div>
-          {/* <Container>
-            <section id="github-search">
-              <form>
-                <div className="user-search-heading">
-                  Search for a github user:
-                </div>
-                <br />
-                <input
-                  className="github-search-input"
-                  placeholder="E.g bloycey"
-                  type="text"
-                  value={this.state.githubName}
-                  onChange={e =>
-                    this.setState({ githubName: e.target.value }, () =>
-                      this.handleSearch(e)
-                        .then(res => {
-                          this.setState({
-                            userResponse: res
-                          });
-                          this.getRateLimit()
-                            .then(res => {
-                              this.setState({
-                                rateLimit: res
-                              });
-                            })
-                            .catch(err => console.log(err));
-                        })
-                        .catch(err => console.log(err))
-                    )
-                  }
-                />
-              </form>
-            </section>
-            <section id="github-search-results">
-              {/* If no results show placeholder */}
-
-          {/* {(this.state.userResponse == "" ||
-                this.state.githubName == "") && (
-                <a href="javascript:void(0)" className="user-card">
-                  <User
-                    key="Example"
-                    username="Example User"
-                    avatar={exampleUser}
-                  />
-                </a>
-              )}
-
-
-              {this.state.userResponse !== "" &&
-                this.state.githubName !== "" &&
-                this.state.userResponse.items !== undefined &&
-                this.state.userResponse.items.map(item => {
-                  return (
-                    <a
-                      key={item.login}
-                      className="user-card"
-                      href="javascript:void(0)"
-                      onClick={() => this.goToProfile(item.login)}
-                    >
-                      <User
-                        key={item.login}
-                        username={item.login}
-                        avatar={item.avatar_url}
-                      />
-                    </a>
-                  );
-                })}
-            </section>
-          </Container> */}
+          <Modal isOpen={this.state.howTo} toggle={() => this.toggleHowTo()}>
+            <ModalHeader toggle={() => this.toggleHowTo()}>
+              How to use Github Portfolio
+            </ModalHeader>
+            <ModalBody>
+              <div className="howtouse">
+                <p>
+                  Github Portfolio uses the Github API to grab all the most
+                  important details stored on your GitHub profile and display
+                  them in an attractive way. To get the best out of GitHub
+                  Portfolio you should follow the steps below:
+                </p>
+                <p className="step-wrapper">
+                  <span className="heading">1. </span>
+                  <span className="step-text">
+                    Make sure your repositories utilise topics. We use these to
+                    help keep things organised.
+                  </span>
+                </p>
+                <p className="step-wrapper">
+                  <span className="heading">2. </span>
+                  Add short descriptions to all of your repositories
+                </p>
+                <p className="step-wrapper">
+                  <span className="heading">3. </span>
+                  Make sure your contact details are up to date. This is
+                  particularly important if you've forwarded your profile to a
+                  potential employer or recruiter
+                </p>
+              </div>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                color="primary"
+                className="getstarted-btn"
+                onClick={() => this.toggleHowTo()}
+              >
+                Get Started
+              </Button>
+            </ModalFooter>
+          </Modal>
         </div>
       </BrowserRouter>
     );

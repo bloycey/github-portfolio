@@ -31,14 +31,31 @@ class TagsView extends Component {
     return (
       <div className="repos-outer-wrapper">
         <div className="tags-here">
-          {tags.sort().map(tag => (
-            <TagCollapse
-              tagName={tag}
-              reposArray={this.props.reposArray}
-              key={tag}
-              tagsApplied={this.props.tagsApplied}
-            />
-          ))}
+          {tags.length > 0 &&
+            tags
+              .sort()
+              .map(tag => (
+                <TagCollapse
+                  tagName={tag}
+                  reposArray={this.props.reposArray}
+                  key={tag}
+                  tagsApplied={this.props.tagsApplied}
+                />
+              ))}
+          {tags.length < 1 && (
+            <p>
+              No tags found. NOTE: We call them tags, but github refers to them
+              as "Topics". To learn how to add topics/tags to your repos follow{" "}
+              <a
+                className="learn-tags"
+                href="https://help.github.com/articles/classifying-your-repository-with-topics/"
+                target="_blank"
+              >
+                this link.
+              </a>
+            </p>
+          )}
+
           <div className="toggle-wrapper" onClick={() => this.toggle()}>
             <h3>
               Unsorted <span className="numItems">{unsortedRepos.length}</span>
