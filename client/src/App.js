@@ -12,7 +12,6 @@ import {
   Button
 } from "reactstrap";
 import "./App.css";
-import exampleUser from "./img/example2.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronCircleRight } from "@fortawesome/free-solid-svg-icons";
 
