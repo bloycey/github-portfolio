@@ -554,10 +554,6 @@ html [type="button"] {
   font-size: 14px;
 }
 
-.fourohfour-wrapper .github-search-input {
-  width: 470px;
-}
-
 /************/
 
 .getstarted-btn {
@@ -653,6 +649,14 @@ html [type="button"] {
 
   .hero-text-wrapper {
     padding: 30px;
+  }
+
+  .usernotfound-heading {
+    font-size: 36px;
+  }
+
+  .fourohfour-text p {
+    font-size: 18px;
   }
 }
 

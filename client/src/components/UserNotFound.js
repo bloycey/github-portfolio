@@ -72,8 +72,14 @@ class UserNotFound extends Component {
                 </form>
                 <div className="still-lost text-center">
                   <p>
-                    Still lost? Try heading <Link to={"/"}>home</Link> or learn
-                    about <Link to={"/about"}>what github portfolio is.</Link>
+                    Still lost? Try heading <Link to={"/"}>home</Link> or check
+                    out the github repo to{" "}
+                    <a
+                      href="https://github.com/bloycey/github-portfolio"
+                      target="_blank"
+                    >
+                      learn more
+                    </a>
                   </p>
                 </div>
               </div>
