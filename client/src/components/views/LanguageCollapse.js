@@ -18,7 +18,7 @@ export default class LanguageCollapse extends Component {
         a.sortDate < b.sortDate ? 1 : b.sortDate < a.sortDate ? -1 : 0
       )
       .filter(repo => {
-        return repo.language == this.props.language;
+        return repo.language === this.props.language;
       });
 
     this.setState({
@@ -35,7 +35,7 @@ export default class LanguageCollapse extends Component {
 
   render() {
     const plusMinus =
-      this.state.collapse == true ? (
+      this.state.collapse === true ? (
         <FontAwesomeIcon icon={faMinus} />
       ) : (
         <FontAwesomeIcon icon={faPlus} />
@@ -43,10 +43,9 @@ export default class LanguageCollapse extends Component {
     const language = this.props.language;
     return (
       <div className="languageCollapse">
-        <h2 />
         <div className="toggle-wrapper" onClick={() => this.toggle()}>
           <h3>
-            {this.props.language}{" "}
+            {language}{" "}
             <span className="numItems">{this.state.languageLength}</span>
           </h3>
           {plusMinus}
@@ -59,12 +58,11 @@ export default class LanguageCollapse extends Component {
                 key={repo.name}
                 description={repo.description}
                 language={repo.language}
-                url={repo.html_url}
                 tags={repo.tags || null}
                 updated={repo.updated_at}
                 stars={repo.stargazers_count}
                 url={repo.svn_url}
-                site={repo.homepage}
+                website={repo.homepage}
                 forked={repo.fork}
               />
             ))}

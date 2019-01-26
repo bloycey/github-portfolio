@@ -4,10 +4,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHandPointRight,
-  faChevronCircleRight
-} from "@fortawesome/free-solid-svg-icons";
+import { faChevronCircleRight } from "@fortawesome/free-solid-svg-icons";
 import "../App.css";
 
 class FourOhFour extends Component {
@@ -71,6 +68,7 @@ class FourOhFour extends Component {
                     <a
                       href="https://github.com/bloycey/github-portfolio"
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       learn more
                     </a>

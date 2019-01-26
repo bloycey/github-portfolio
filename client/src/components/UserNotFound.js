@@ -1,19 +1,10 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import {
-  Link,
-  BrowserRouter,
-  Route,
-  Redirect,
-  withRouter
-} from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHandPointRight,
-  faChevronCircleRight
-} from "@fortawesome/free-solid-svg-icons";
+import { faChevronCircleRight } from "@fortawesome/free-solid-svg-icons";
 import "../App.css";
 
 class UserNotFound extends Component {
@@ -77,6 +68,7 @@ class UserNotFound extends Component {
                     <a
                       href="https://github.com/bloycey/github-portfolio"
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       learn more
                     </a>

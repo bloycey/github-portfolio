@@ -3,7 +3,6 @@ import { Button } from "reactstrap";
 import { distanceInWordsToNow } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCode,
   faLaptopCode,
   faStar,
   faExternalLinkAlt,
@@ -12,7 +11,7 @@ import {
 import Tag from "./Tag";
 import "../App.css";
 
-class Repo extends React.Component {
+class Repo extends Component {
   state = {};
 
   render() {
@@ -50,9 +49,13 @@ class Repo extends React.Component {
           <FontAwesomeIcon icon={faLaptopCode} />
           <span>: {this.props.language}</span>
         </div>
-        {this.props.site && (
+        {this.props.website && (
           <div className="site-wrapper pb-2">
-            <a href={this.props.site} target="_blank">
+            <a
+              href={this.props.website}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FontAwesomeIcon icon={faExternalLinkAlt} /> View Project Site
             </a>
           </div>
@@ -69,6 +72,7 @@ class Repo extends React.Component {
         <a
           href={this.props.url}
           target="_blank"
+          rel="noopener noreferrer"
           className="view-repo-btn-wrapper"
         >
           <Button outline className="view-repo-btn">

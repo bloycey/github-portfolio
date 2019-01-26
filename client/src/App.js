@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import User from "./components/User";
-import { BrowserRouter, Route, Link, Redirect } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import {
   Container,
   Modal,

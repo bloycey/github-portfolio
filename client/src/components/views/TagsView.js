@@ -19,7 +19,7 @@ class TagsView extends Component {
 
   render() {
     const plusMinus =
-      this.state.unsortedCollapse == true ? (
+      this.state.unsortedCollapse === true ? (
         <FontAwesomeIcon icon={faMinus} />
       ) : (
         <FontAwesomeIcon icon={faPlus} />
@@ -50,6 +50,7 @@ class TagsView extends Component {
                 className="learn-tags"
                 href="https://help.github.com/articles/classifying-your-repository-with-topics/"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 this link.
               </a>
@@ -70,12 +71,11 @@ class TagsView extends Component {
                   key={repo.name}
                   description={repo.description}
                   language={repo.language}
-                  url={repo.html_url}
                   tags={repo.tags || null}
                   updated={repo.updated_at}
                   stars={repo.stargazers_count}
                   url={repo.svn_url}
-                  site={repo.homepage}
+                  website={repo.homepage}
                 />
               ))}
             </div>

@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import Repo from "../Repo";
+import React from "react";
 import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
@@ -33,6 +32,7 @@ const InfoView = props => {
               href={props.userData.blog}
               target="_blank"
               className="email-link"
+              rel="noopener noreferrer"
             >
               {props.userData.blog}
             </a>
@@ -54,6 +54,7 @@ const InfoView = props => {
           href={props.userData.html_url}
           className="visit-profile"
           target="_blank"
+          rel="noopener noreferrer"
         >
           Visit Profile <FontAwesomeIcon icon={faExternalLinkAlt} />
         </a>

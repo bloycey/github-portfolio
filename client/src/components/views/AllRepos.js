@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Repo from "../Repo";
 import "../../App.css";
 
@@ -15,12 +15,11 @@ const AllRepos = props => {
             key={repo.name}
             description={repo.description}
             language={repo.language}
-            url={repo.html_url}
             tags={repo.tags || null}
             updated={repo.updated_at}
             stars={repo.stargazers_count}
             url={repo.svn_url}
-            site={repo.homepage}
+            website={repo.homepage}
             forked={repo.fork}
           />
         ))}

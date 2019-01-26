@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { format, compareDesc, compareAsc } from "date-fns";
-import Repo from "./components/Repo";
+import { format } from "date-fns";
 import Footer from "./components/Footer";
 import AllRepos from "./components/views/AllRepos";
 import TagsView from "./components/views/TagsView";
@@ -14,13 +13,11 @@ import {
   faListAlt,
   faHashtag,
   faCode,
-  faChartPie,
   faSpinner,
-  faUser,
-  faExternalLinkAlt
+  faUser
 } from "@fortawesome/free-solid-svg-icons";
 
-class Profile extends React.Component {
+class Profile extends Component {
   state = {
     userData: false,
     view: "all",
@@ -161,8 +158,6 @@ class Profile extends React.Component {
   }
 
   render() {
-    const repos = this.state.repos;
-    const reposArray = this.state.reposArray;
     const username = this.props.match.params.user;
 
     if (this.state.badUser === true) {
@@ -183,6 +178,7 @@ class Profile extends React.Component {
                     <img
                       src={this.state.userData.avatar_url}
                       className="img-fluid"
+                      alt={username + " avatar"}
                     />
                   </Col>
                   <Col xs="12" md="7" lg="9" className="profile-header-text">
@@ -217,7 +213,7 @@ class Profile extends React.Component {
                 <div className="filter-controls">
                   <Button
                     className={
-                      this.state.view == "all"
+                      this.state.view === "all"
                         ? "filter-btn selected"
                         : "filter-btn"
                     }
@@ -228,7 +224,7 @@ class Profile extends React.Component {
                   </Button>
                   <Button
                     className={
-                      this.state.view == "language"
+                      this.state.view === "language"
                         ? "filter-btn selected"
                         : "filter-btn"
                     }
@@ -240,7 +236,7 @@ class Profile extends React.Component {
                   </Button>
                   <Button
                     className={
-                      this.state.view == "tags"
+                      this.state.view === "tags"
                         ? "filter-btn selected"
                         : "filter-btn"
                     }
@@ -251,7 +247,7 @@ class Profile extends React.Component {
                   </Button>
                   <Button
                     className={
-                      this.state.view == "info"
+                      this.state.view === "info"
                         ? "filter-btn selected"
                         : "filter-btn"
                     }

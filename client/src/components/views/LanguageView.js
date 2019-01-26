@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import Repo from "../Repo";
 import "../../App.css";
 import LanguageCollapse from "./LanguageCollapse";
 
-class LanguageView extends React.Component {
+class LanguageView extends Component {
   state = {
     languages: []
   };

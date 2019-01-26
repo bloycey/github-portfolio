@@ -1,7 +1,5 @@
-import React, { Component } from "react";
-import { Container, Row, Col, Button } from "reactstrap";
-import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
+import React from "react";
+import { Container, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import "../App.css";
 
@@ -23,6 +21,7 @@ const Footer = props => {
               <a
                 href="https://github.com/bloycey/github-portfolio"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 github
               </a>

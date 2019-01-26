@@ -12,7 +12,7 @@ export default class TagCollapse extends Component {
   };
 
   componentDidMount() {
-    if (this.props.tagsApplied == true) {
+    if (this.props.tagsApplied === true) {
       this.props.reposArray.forEach(repo => {
         if (repo.tags.names.length > 0) {
           if (repo.tags.names.includes(this.props.tagName)) {
@@ -35,20 +35,18 @@ export default class TagCollapse extends Component {
 
   render() {
     const plusMinus =
-      this.state.collapse == true ? (
+      this.state.collapse === true ? (
         <FontAwesomeIcon icon={faMinus} />
       ) : (
         <FontAwesomeIcon icon={faPlus} />
       );
     const numTags = this.state.filteredArray.length;
     const tagName = this.props.tagName;
-    const tagsApplied = this.props.tagsApplied;
     return (
       <div className="tagCollapse">
-        <h2 />
         <div className="toggle-wrapper" onClick={() => this.toggle()}>
           <h3>
-            {this.props.tagName} <span className="numItems">{numTags}</span>
+            {tagName} <span className="numItems">{numTags}</span>
           </h3>
           {plusMinus}
         </div>
@@ -64,12 +62,12 @@ export default class TagCollapse extends Component {
                   key={repo.name}
                   description={repo.description}
                   language={repo.language}
-                  url={repo.html_url}
+                  // url={repo.html_url}
                   tags={repo.tags || null}
                   updated={repo.updated_at}
                   stars={repo.stargazers_count}
                   url={repo.svn_url}
-                  site={repo.homepage}
+                  website={repo.homepage}
                   forked={repo.fork}
                 />
               ))}
