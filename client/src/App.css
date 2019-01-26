@@ -68,6 +68,7 @@ p {
 .hero-text-wrapper h1 {
   font-size: 144px;
   line-height: 0.7;
+  letter-spacing: 0.025em;
 }
 
 .hero-text-wrapper h1 span {

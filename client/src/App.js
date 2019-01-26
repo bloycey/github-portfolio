@@ -51,7 +51,6 @@ class App extends Component {
           <div className="App-header">
             <ul className="header-menu-items">
               <li onClick={() => this.toggleHowTo()}>How to Use</li>
-              {/* <li>About Developer</li> */}
             </ul>
             <Container>
               <div className="hero-text-wrapper">
