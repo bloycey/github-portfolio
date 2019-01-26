@@ -32,9 +32,9 @@ class FourOhFour extends Component {
             <Col md={{ size: 8, offset: 2 }}>
               <h1 className="fourohfour-heading text-center">404</h1>
               <div className="fourohfour-text text-center">
-                <p>Uh oh. This page doesn't exist</p>
+                <p>Uh oh. This page doesn't exist.</p>
                 <p>
-                  Try searching for a github user using the search bar below
+                  Try searching for a github user using the search bar below.
                 </p>
               </div>
               <div className="form-404-wrapper text-center">
@@ -70,7 +70,7 @@ class FourOhFour extends Component {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      learn more
+                      learn more.
                     </a>
                   </p>
                 </div>

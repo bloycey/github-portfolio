@@ -31,11 +31,11 @@ class UserNotFound extends Component {
           <Row>
             <Col md={{ size: 8, offset: 2 }}>
               <h1 className="usernotfound-heading text-center">
-                User Not Found
+                User Not Found.
               </h1>
               <div className="fourohfour-text text-center">
                 <p>A typo maybe?</p>
-                <p>Try again using the search bar below</p>
+                <p>Try again using the search bar below.</p>
               </div>
               <div className="form-404-wrapper text-center">
                 <form
@@ -70,7 +70,7 @@ class UserNotFound extends Component {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      learn more
+                      learn more.
                     </a>
                   </p>
                 </div>
