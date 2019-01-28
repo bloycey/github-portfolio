@@ -59,23 +59,6 @@ class App extends Component {
                   <span>Portfolio</span>
                 </h1>
               </div>
-              <div className="hero-text-wrapper info d-none">
-                <p>
-                  A project inspired by a single missing feature in GitHub:{" "}
-                  <em>Folders.</em>
-                </p>
-                <p>
-                  <strong>Github Portfolio</strong> allows you to categorise
-                  your repos using a simple tag system. Group your finished
-                  projects together, your sandbox projects together, and more.
-                </p>
-
-                <p>
-                  <strong>Github Portfolio</strong> turns your github profile
-                  into an <strong>organised showcase</strong> of your work.
-                  <a href="/users/bloycey">Bloycey's Profile</a>
-                </p>
-              </div>
               <form
                 onSubmit={() => this.goToProfile(this.state.githubName)}
                 id="home-search"
