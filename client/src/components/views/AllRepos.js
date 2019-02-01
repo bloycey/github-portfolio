@@ -16,7 +16,7 @@ const AllRepos = props => {
             description={repo.description}
             language={repo.language}
             tags={repo.tags || null}
-            updated={repo.updated_at}
+            updated={repo.pushed_at}
             stars={repo.stargazers_count}
             url={repo.svn_url}
             website={repo.homepage}
